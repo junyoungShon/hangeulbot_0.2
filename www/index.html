@@ -27,60 +27,14 @@
     <script src="js/controller/parentCtrl.js"></script>
     <script src="js/controller/indexCtrl.js"></script>
     <script src="js/bluetoothService.js"></script>
+
+    <script src="js/DTO/HangeulbotDevice.js"></script>
+    <script src="js/DTO/UserInfo.js.js"></script>
   </head>
   <body ng-app="hangeulbotApp">
-
-    <ion-pane>
-      <ion-content>
-        <div class="parent" ng-controller="parentCtrl">
-          <!--부모 컨트롤러 : {{isBluetoothEnabled}}-->
-          <div class="app" ng-controller="indexCtrl">
-            <!--<button class="btn btn-success" ng-if="isBluetoothEnabled=='disabled'" ng-click="enableBluetooth()">블루투스 On</button>
-            <button class="btn btn-success" ng-if="isBluetoothEnabled=='enabled'" ng-click="connect()">Connect</button>-->
-            <div class="introDiv">
-              <img src="img/intro_logo.png" class="introLogo">
-
-            </div>
-
-            <div class="connectDiv">
-              <p>주변의 한글봇 전원을 켜주세요!</p>
-              <div class="connectBtnDiv" ng-hide="aroundHangeulbotDevices.length>=2">
-                <button class="button button-block button-positive">
-                  Connect
-                </button>
-              </div>
-              <div class="list" ng-hide="aroundHangeulbotDevices.length<2" ng-repeat="device in aroundHangeulbotDevices">
-                <div class="item item-button-right">
-                  {{device.id}}
-                  <button class="button button-positive">
-                    <!--<i class="icon ion-ios-telephone"></i>-->
-                    Connect
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!--자식 컨트롤러 : {{$parent.isBluetoothEnabled}}-->
-            <!--<h1>Bluetooth Serial Chat</h1>
-            <div id="mainPage">
-              <ul id="deviceList">
-              </ul>
-              <button id="refreshButton">Refresh</button>
-              <button id="enableBtBtn">enableBt</button>
-            </div>
-            <div id="detailPage">
-              <div id="resultDiv"></div>
-              <div>
-                <input type="text" id="messageInput" value="Hello"/>
-                <button id="sendButton">Send</button>
-              </div>
-              <button id="disconnectButton">Disconnect</button>
-            </div>
-            <div id="statusDiv"></div>-->
-          </div>
-        </div>
-      </ion-content>
-    </ion-pane>
+  <div class="parent" ng-controller="parentCtrl">
+    <ion-nav-view></ion-nav-view>
+  </div>
   </body>
   <script type="text/javascript">
     //bluetooth.initialize();

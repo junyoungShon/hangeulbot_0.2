@@ -10,20 +10,7 @@ angular.module('hangeulbotApp')
     deviceId : '',
     connectionStatus : ''
   }
-  $scope.userInfo = {
-    deviceId : '',
-    child :
-      [
-        {
-          childIndex : 0,
-          childName :''
-        },
-        {
-          childIndex : 1,
-          childName :''
-        }
-      ]
-  }
+
   //선택된 디바이스에 subscribe 시도한다.
   $scope.subscribe = function(){
     var subscribePromise =bluetoothService.subscribe();
@@ -32,6 +19,7 @@ angular.module('hangeulbotApp')
     },function(){
     })
   }
+
   $scope.loadingModal = function(showingOverlay,message){
     if(showingOverlay){
       $ionicLoading.show({
@@ -62,7 +50,7 @@ angular.module('hangeulbotApp')
       }, 1000);
       setTimeout(function () {
         $scope.$apply(function () {
-          //$ionicLoading.hide();
+          $ionicLoading.hide();
         });
       }, 2000);
     }

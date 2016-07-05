@@ -3,9 +3,20 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('hangeulbotApp', ['ionic','ngCordova'])
+angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova'])
+  .config(function($stateProvider, $urlRouterProvider) {
 
-.run(function($ionicPlatform) {
+    $stateProvider
+      .state('intro', {
+        url: 'intro',
+        templateUrl: 'templates/intro.html'
+      })
+
+      $urlRouterProvider.otherwise('intro');
+
+  })
+
+.run(function($ionicPlatform,$state) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -13,14 +24,16 @@ angular.module('hangeulbotApp', ['ionic','ngCordova'])
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
       // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
+      // from snapping when text inputs are focused. Ionic handles sdasdthis internally for
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-
+    console.log('왜 안가냐 여기롴ㅇㄷㅇ')
+    $state.go('intro');
+    console.log('왜 안가냐 여기롴ㅇㄷㅇ')
   });
 })
 

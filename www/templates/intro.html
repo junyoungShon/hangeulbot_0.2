@@ -1,0 +1,33 @@
+<ion-pane>
+  <ion-content>
+
+      <!--부모 컨트롤러 : {{isBluetoothEnabled}}-->
+      <div class="app" ng-controller="indexCtrl">
+        <!--<button class="btn btn-success" ng-if="isBluetoothEnabled=='disabled'" ng-click="enableBluetooth()">블루투스 On</button>
+        <button class="btn btn-success" ng-if="isBluetoothEnabled=='enabled'" ng-click="connect()">Connect</button>-->
+        <div class="introDiv">
+          <img src="img/intro_logo.png" class="introLogo">
+
+        </div>
+
+        <div class="connectDiv">
+          <p>주변의 한글봇 전원을 켜주세요!</p>
+          <div class="connectBtnDiv" ng-hide="aroundHangeulbotDevices.length>=2">
+            <button class="button button-block button-positive">
+              Connect
+            </button>
+          </div>
+          <div class="list" ng-hide="aroundHangeulbotDevices.length<2" ng-repeat="device in aroundHangeulbotDevices track by $index">
+            <div class="item item-button-right">
+              {{device.id}} / {{device.name}}
+              <button class="button button-positive">
+                <!--<i class="icon ion-ios-telephone"></i>-->
+                Connect
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </ion-content>
+</ion-pane>

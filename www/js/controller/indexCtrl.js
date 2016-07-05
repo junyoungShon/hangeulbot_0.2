@@ -4,7 +4,7 @@
 angular.module('hangeulbotApp')
 
 
-  .controller('indexCtrl',function($ionicPlatform,$scope,bluetoothService,$ionicPopup){
+  .controller('indexCtrl',function($ionicPlatform,$scope,bluetoothService,$ionicPopup,HangeulbotDevice){
     $ionicPlatform.ready(function() {
       //현재 디바이스의 블루투스 허용상태
 
@@ -19,7 +19,7 @@ angular.module('hangeulbotApp')
         promise.then(function(result){
           console.log(result);
           //블루투스 상태를 바꿔준다.
-          $scope.$parent.isBluetoothEnabled = result;
+          HangeulbotDevice.setIsBluetoothEnabled(result);
           //자동으로 블루투스 가능 기기를 검색해줌
           $scope.discoverDevices();
           //블루투스 허용이 안되었을 때는 팝업창과 함께 블루투스 허용 팝업 무한출력
@@ -32,7 +32,7 @@ angular.module('hangeulbotApp')
            */
         },function(reason){
           console.log(reason);
-          $scope.$parent.isBluetoothEnabled = reason;
+          HangeulbotDevice.setIsBluetoothEnabled(reason)
           var alertPopup = $ionicPopup.alert({
             title: '블루투스 연결실패!',
             template: '블루투스를 허용해주셔야 해요 블루투스 허용에 동의해주세요! 그렇지 않으면 앱을 이용하실 수 없어요'
@@ -47,27 +47,28 @@ angular.module('hangeulbotApp')
 
 
       //주변의 페어링 가능한 기기를 수색하며 ,
-      // 한글봇이 1대 발견되면 바로 연결
+      //한글봇이 1대 발견되면 바로 연결
       //2대 이상이면 리스트 반환
       //0대 이면 한글봇을 못찾았다는 메시지 반환
       $scope.discoverDevices = function(){
+        $scope.aroundHangeulbotDevices = [];
         //주변의 페어링 가능한 한글 봇 기기를 찾는다.
         var pairedDeviceSearchPromise = bluetoothService.discoverPairedDevices();
         pairedDeviceSearchPromise.then(function(data){
-          console.log('페얼드 data넘어왔다..'+data.length);
           //페어링 된적있는 한글봇이 0대이면 unpaired device를 검색하기 시작한다.
           if(data.length==0) {
-            $scope.discoverUnPairedDevices();
+
             //페어링 된적 있있는 기기가 1개면 바로 연결 시도
           }else if(data.length==1){
             $scope.aroundHangeulbotDevices.push(data[0]);
-            $scope.connect(data[0]);
+            //$scope.connect(data[0]);
             // 페어링된적 있는 기기가 주변에 2개 이상이면 리스트로 선택할 수 있게해줌
           }else if(data.length>1){
             data.forEach(function(device){
-              $scope.aroundHangeulbotDevices = data;
+              $scope.aroundHangeulbotDevices.push(data);
             });
           }
+          $scope.discoverUnPairedDevices();
           //에러 발생
         },function(err){
 
@@ -87,19 +88,61 @@ angular.module('hangeulbotApp')
           if(data.length==0) {
 
             //기기가 1개면 바로 연결 시도
+
           }else if(data.length==1){
             $scope.aroundHangeulbotDevices.push(data[0]);
-            $scope.connect(data[0]);
+
             //기기가 주변에 2개 이상이면 리스트로 선택할 수 있게해줌
           }else if(data.length>1){
             data.forEach(function(device){
-              $scope.aroundHangeulbotDevices = data;
+              $scope.aroundHangeulbotDevices.push(data);
             });
+
           }
-          //에러 발생
+          $scope.finishSearchDevice();
         },function(err){
 
         })
+      }
+
+      $scope.finishSearchDevice = function(){
+        console.log('피니쉬로그가 찍힌닼ㄴㄴㅋㄴ')
+        //로딩 꺼준다
+        $scope.loadingModal(false,'한글봇 기기를 수색완료!');
+        //에러 발생
+        // 페어드된 적 있는 한글봇과 페어드된 적 없는 한글봇을 모두 수색하고 그 숫자에 따라 커넥트할 지 리스트를 보여줄 지 선택
+        if($scope.aroundHangeulbotDevices.length==1){
+          //바로 연결 시켜준다
+          var alertPopup = $ionicPopup.alert({
+            title: '블루투스 연결시도!',
+            template: '블루투스를 허용해주셔야 해요 블루투스 허용에 동의해주세요! 그렇지 않으면 앱을 이용하실 수 없어요'
+          });
+          //블루투스 연결안되었다는 신호를 보낸 뒤에 허용요청 다시 시도
+          alertPopup.then(function(res) {
+            //$scope.enableBluetooth();
+          });
+          //$scope.connect($scope.aroundHangeulbotDevices[0]);
+        }else if($scope.aroundHangeulbotDevices.length>=2){
+          var alertPopup = $ionicPopup.alert({
+            title: '블루투스 연결대상 두개이상!',
+            template: '블루투스를 허용해주셔야 해요 블루투스 허용에 동의해주세요! 그렇지 않으면 앱을 이용하실 수 없어요'
+          });
+          //블루투스 연결안되었다는 신호를 보낸 뒤에 허용요청 다시 시도
+          alertPopup.then(function(res) {
+            //$scope.enableBluetooth();
+          });
+          //리스트로 연결 가능한 한글봇 기계들을 보여준다
+        }else{
+          var alertPopup = $ionicPopup.alert({
+            title: '블루투스 수색실패!',
+            template: '블루투스를 허용해주셔야 해요 블루투스 허용에 동의해주세요! 그렇지 않으면 앱을 이용하실 수 없어요'
+          });
+          //블루투스 연결안되었다는 신호를 보낸 뒤에 허용요청 다시 시도
+          alertPopup.then(function(res) {
+            //$scope.enableBluetooth();
+          });
+          //경고문을 출력하며 한글봇 재수색 버튼을 보여준다
+        }
       }
 
       //선택된 디바이스에 connect를 시도한다.
