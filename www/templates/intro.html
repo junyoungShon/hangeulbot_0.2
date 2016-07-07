@@ -11,20 +11,35 @@
         </div>
 
         <div class="connectDiv">
-          <p>주변의 한글봇 전원을 켜주세요!</p>
-          <div class="connectBtnDiv" ng-hide="aroundHangeulbotDevices.length>=2">
-            <button class="button button-block button-positive">
+          <p ng-if="userCondition=='bluetoothDisabled'" ng-click="isEnabledBluetooth()">기기의 블루투스를 활성화시키고 재탐색 버튼을 눌러주세요!</p>
+          <p ng-if="userCondition=='findNone'" ng-click="discoverDevices()">주변에 한글봇이 없는 것 같아요! 한글봇 전원을 확인해주세요</p>
+          <p ng-if="userCondition=='findOverTwoDevice'">아래의 한글봇들 중에 플레이할 한글봇을 선택해서 connect 해주세요</p>
+          <div class="connectBtnDiv">
+            <button class="button button-block button-positive" ng-if="userCondition=='findOneDevice'">
               Connect
             </button>
+            <button class="button button-block button-positive" ng-if="userCondition=='findNone'">
+              재탐색
+            </button>
+            <button class="button button-block button-positive" ng-if="userCondition=='bluetoothDisabled'">
+              재탐색
+            </button>
           </div>
-          <div class="list" ng-hide="aroundHangeulbotDevices.length<2" ng-repeat="device in aroundHangeulbotDevices track by $index">
+          <div class="list" ng-if="userCondition=='findOverTwoDevice'" ng-repeat="device in aroundHangeulbotDevices track by $index">
             <div class="item item-button-right">
               {{device.id}} / {{device.name}}
-              <button class="button button-positive">
+              <button class="button button-positive" ng-click="connect(device);">
                 <!--<i class="icon ion-ios-telephone"></i>-->
                 Connect
               </button>
             </div>
+          </div>
+        </div>
+
+        <!--현재 블루투스 기능이 꺼져있을 때 출력되는 화면 -->
+        <div class="enableDiv" ng-if="userCondition=='bluetoothDisabled'">
+          <div class="connectBtnDiv" >
+
           </div>
         </div>
       </div>

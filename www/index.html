@@ -4,32 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-
-    <script src="cordova.js"></script>
-    <!-- 블루투스 js 파일 -->
-    <script type="text/javascript" src="js/bluetooth.js"></script>
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
-    <script src="js/controller/parentCtrl.js"></script>
-    <script src="js/controller/indexCtrl.js"></script>
-    <script src="js/bluetoothService.js"></script>
-
-    <script src="js/DTO/HangeulbotDevice.js"></script>
-    <script src="js/DTO/UserInfo.js.js"></script>
   </head>
   <body ng-app="hangeulbotApp">
   <div class="parent" ng-controller="parentCtrl">
@@ -39,4 +23,44 @@
   <script type="text/javascript">
     //bluetooth.initialize();
   </script>
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+  <script src="cordova.js"></script>
+
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+
+
+  <!-- 블루투스 js 파일 -->
+  <script type="text/javascript" src="js/bluetooth.js"></script>
+  <script src="js/app.js"></script>
+  <!--Controller js -->
+  <script src="js/controller/parentCtrl.js"></script>
+  <script src="js/controller/indexCtrl.js"></script>
+  <script src="js/controller/insertInfoCtrl.js"></script>
+
+  <!--Service js -->
+  <script src="js/service/bluetoothService.js"></script>
+  <script src="js/service/LoginService.js"></script>
+  <script src="js/constants.js"></script>
+  <script src="js/util/hangeulbotUtil.js"></script>
+
+  <!--DTO Service js -->
+  <script src="js/DTO/HangeulbotDevice.js"></script>
+  <script src="js/DTO/UserInfo.js"></script>
+
+  <!--Directive -->
+  <script src="js/directive/validation.js"></script>
+
 </html>

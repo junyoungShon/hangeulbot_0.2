@@ -3,13 +3,17 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova'])
+angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova','ngMaterial'])
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('intro', {
         url: 'intro',
         templateUrl: 'templates/intro.html'
+      })
+      .state('insertInfo', {
+        url: 'insertInfo',
+        templateUrl: 'templates/insertInfo.html'
       })
 
       $urlRouterProvider.otherwise('intro');
@@ -31,9 +35,8 @@ angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-    console.log('왜 안가냐 여기롴ㅇㄷㅇ')
+
     $state.go('intro');
-    console.log('왜 안가냐 여기롴ㅇㄷㅇ')
   });
 })
 

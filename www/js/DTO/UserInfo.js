@@ -7,6 +7,8 @@ angular.module('hangeulbotApp')
     var userInfo = {
       deviceId : '',
       userId:'',
+      password:'',
+      phoneNumber:'',
       child :
         [
           {
@@ -19,11 +21,22 @@ angular.module('hangeulbotApp')
           }
         ]
     }
+
+    var setUserInfo = function(userInfo){
+      userInfo.userInfo = userInfo;
+    }
+    var getUserInfo = function(){
+      return this.userInfo;
+    }
     //
     // var setUserInfo = function(userInfo){
     //   this.userInfo =
     // }
 
-    return userInfo;
+    return {
+      userInfo : userInfo,
+      setUserInfo : setUserInfo,
+      getUserInfo : getUserInfo
+    };
 
   })

@@ -7,12 +7,13 @@ angular.module('hangeulbotApp')
       var deviceStatus = {
         isBluetoothEnabled :  '',
         deviceId : '',
+        deviceName:'',
         devicePlatform : '',
         connectionStatus : '',
       }
 
       var setDeviceStatus = function(deviceStatus){
-        this.deviceStatus = deviceStatus;
+        deviceStatus.deviceStatus = deviceStatus;
       }
 
       var getDeviceStatus = function(){
@@ -35,8 +36,16 @@ angular.module('hangeulbotApp')
         deviceStatus.deviceId = deviceId;
       }
 
+      var getDeviceName = function(){
+        return deviceStatus.deviceName;
+      }
+
+      var setDeviceName = function(deviceName) {
+        deviceStatus.deviceName = deviceName;
+      }
+
       var getDevicePlatform = function(){
-        return deviceStatus.deviceFlatform
+        return deviceStatus.devicePlatform
       }
 
       var setDevicePlatform = function(devicePlatform){
@@ -59,6 +68,8 @@ angular.module('hangeulbotApp')
       getIsBluetoothEnabled : getIsBluetoothEnabled,
       getDeviceId : getDeviceId,
       setDeviceId : setDeviceId,
+      getDeviceName : getDeviceName,
+      setDeviceName : setDeviceName,
       getDevicePlatform : getDevicePlatform,
       setDevicePlatform : setDevicePlatform,
       getConnectionStauts : getConnectionStauts,

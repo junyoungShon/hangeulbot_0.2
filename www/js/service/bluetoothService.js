@@ -8,9 +8,21 @@ angular.module('hangeulbotApp')
   // 블루투스가 사용가능할 때는 enabled , 아닐때는 disabled 를 반환하면서 아닐때는 허용을 요청한다.
   var isEnabled = function(){
     var q = $q.defer();
-    //android만 지원해준다! 슈벌! 그럼 아이오에스는 ??ㅠㅠ
-    var promise = $cordovaBluetoothSerial.enable();
+    var promise = $cordovaBluetoothSerial.isEnabled();
     console.log('아이폰에서 여기오나 ?');
+    promise.then(function(){
+      console.log('사용가능하다.');
+      q.resolve('enabled');
+    },function(){
+      console.log('사용 허용이 안되어있다..');
+      q.reject('disabled');
+    })
+    return q.promise;
+  };
+
+  var enable = function(){
+    var q = $q.defer();
+    var promise = $cordovaBluetoothSerial.enable();
     promise.then(function(){
       console.log('승낙했다.');
       q.resolve('enabled');
@@ -20,6 +32,8 @@ angular.module('hangeulbotApp')
     })
     return q.promise;
   };
+
+
 
   var discoverPairedDevices = function(){
     var q = $q.defer();
@@ -53,7 +67,7 @@ angular.module('hangeulbotApp')
         /*if(device.name=='KITECH_B'){*/
         //if(device.name=='KITECH_B'){
         devices.push(device);
-          
+
         //}
       })
       q.resolve(devices);
@@ -106,6 +120,7 @@ angular.module('hangeulbotApp')
   }
   return {
     isEnabled: isEnabled,
+    enable: enable,
     discoverPairedDevices : discoverPairedDevices,
     discoverUnpairedDevices : discoverUnpairedDevices,
     connect : connect,
