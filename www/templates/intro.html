@@ -15,13 +15,13 @@
           <p ng-if="userCondition=='findNone'" ng-click="discoverDevices()">주변에 한글봇이 없는 것 같아요! 한글봇 전원을 확인해주세요</p>
           <p ng-if="userCondition=='findOverTwoDevice'">아래의 한글봇들 중에 플레이할 한글봇을 선택해서 connect 해주세요</p>
           <div class="connectBtnDiv">
-            <button class="button button-block button-positive" ng-if="userCondition=='findOneDevice'">
+            <button class="button button-block button-positive" ng-if="userCondition=='findOneDevice'" ng-click="connect(device);">
               Connect
             </button>
-            <button class="button button-block button-positive" ng-if="userCondition=='findNone'">
+            <button class="button button-block button-positive" ng-if="userCondition=='findNone'" ng-click="connect(device);">
               재탐색
             </button>
-            <button class="button button-block button-positive" ng-if="userCondition=='bluetoothDisabled'">
+            <button class="button button-block button-positive" ng-if="userCondition=='bluetoothDisabled'" ng-click="connect(device);">
               재탐색
             </button>
           </div>
@@ -37,7 +37,7 @@
         </div>
 
         <!--현재 블루투스 기능이 꺼져있을 때 출력되는 화면 -->
-        <div class="enableDiv" ng-if="userCondition=='bluetoothDisabled'">
+        <div class="enableDiv" ng-if="userCondition=='bluetoothDisabled'" ng-click="connect(device);>
           <div class="connectBtnDiv" >
 
           </div>

@@ -15,12 +15,16 @@ angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova','ngMaterial'])
         url: 'insertInfo',
         templateUrl: 'templates/insertInfo.html'
       })
+      .state('insertChildInfo', {
+        url: 'insertInfoChildInfo',
+        templateUrl: 'templates/insertChildInfo.html'
+      })
 
       $urlRouterProvider.otherwise('intro');
 
   })
 
-.run(function($ionicPlatform,$state) {
+.run(function($ionicPlatform,$state,$rootScope,AuthService) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -35,7 +39,21 @@ angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova','ngMaterial'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-
+    //인터셉터로서의 역할을 담당한다. 비로그인 상태에서 다른 url로 접근할 경우 무조건 login 페이지로 이동시킴
+    $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+      if (!AuthService.isAuthenticated()) {
+         console.log(next.name);
+         if (next.name !== 'intro' && next.name !== 'insertInfo') {
+           event.preventDefault();
+           $state.go('intro');
+         }
+       }
+     });
+     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+     $rootScope.$broadcast("currenStateUpated",{
+     currentState : toState.name
+     })
+     });
     $state.go('intro');
   });
 })

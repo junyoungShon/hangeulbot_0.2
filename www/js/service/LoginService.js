@@ -3,7 +3,7 @@
  */
 angular.module('hangeulbotApp')
 
-.service('AuthService', function($q, $http, API_ENDPOINT) {
+.service('AuthService', function($q, $http, API_ENDPOINT,UserInfo) {
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
   var authToken;
@@ -39,32 +39,34 @@ angular.module('hangeulbotApp')
     return $q(function(resolve,reject){
       $http({
         method: 'POST', //방식
-        url: API_ENDPOINT.url+'/get/userInfo',
+        url: API_ENDPOINT.url+'/userInfo',
         data: hanguelbotDevice,
         dataType:'json',
       }).success(function(data, status, headers, config) {
+        console.log("",data)
         resolve(data);
       }).error(function(data, status, headers, config) {
-        //reject(result.data.msg);
+
+        reject(result.data.msg);
       });
     })
   }
-
-  var register = function(userInfo) {
+  var register = function(userInfo,deviceInfo) {
     return $q(function(resolve, reject) {
-
+      deviceInfo.hangeulbotUser = userInfo;
+      console.log("넘어갈 데이터 : " ,deviceInfo)
       $http({
-        method: 'POST', //방식
-        url: API_ENDPOINT.url+'/save/userInfoAndDeviceInfo',
-        data: userInfo,
-        dataType:'json',
+        method: 'PUT', //방식
+        url: API_ENDPOINT.url+'/deviceInfoAndUserInfo',
+        data: deviceInfo,
+        dataType:'json'
       }).success(function(data, status, headers, config) {
-        if(data.success) {
-          storeUserCredentials(data.token);
-          resolve("가입 및 로그인 성공");
-        }else {
-          reject(result.data.msg);
-        }
+        console.log("HttpStatus : "+ status );
+
+        storeUserCredentials(data.token);
+        UserInfo.userInfo = data.hangeulbotUser;
+        resolve(data);
+
       }).error(function(data, status, headers, config) {
         reject(result.data.msg);
       });
