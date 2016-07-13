@@ -1,0 +1,74 @@
+<md-dialog aria-label="아이정보입력" style="width: 80%">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>아이 정보 입력</h2>
+
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="margin-top:10px;">
+        <form name="childInfoForm" novalidate>
+      <div layout="row">
+        <div flex="30">
+          <div class="avatarDiv" STYLE="text-align: center;">
+            <!--<img class="avatar" src="http://192.168.0.146:8888/static/childPhoto/intro_logo.png" style="height:auto; width:80%; border-radius: 400px;margin: 0 auto">-->
+            <img class="avatar" src="{{profileImageUrl}}" style="height:auto; width:80%; border-radius: 400px;margin: 0 auto">
+
+          </div>
+          <div style="width: 80%; text-align: center; margin-left: 10%">
+            <button class="button button-block button-energized" ng-click="addMedia()">
+              <strong>사진추가</strong>
+            </button>
+          </div>
+        </div>
+        <div flex="70">
+      <md-content layout-padding>
+          <md-input-container class="md-block">
+            <label>아이 이름</label>
+            <input md-maxlength="10" required name="childName" ng-model="childInfo.childName"/>
+
+          </md-input-container>
+
+            <div ng-click="openDatePicker()">
+
+            <md-input-container class="md-block">
+              <label>아이 생일</label>
+              <input required name="childBirth" ng-model="childInfo.childBirth" required disabled style="display: none;">
+              {{childInfo.childBirth}}
+              <div ng-messages="childInfoForm.childName.$error">
+                <div ng-message="required">아이 생일을 입력해주세요.</div>
+              </div>
+
+              </md-input-container>
+
+            </div>
+
+          <md-input-container class="md-block">
+            <label>성별</label>
+            <md-select name="childGender" ng-model="childInfo.childGender" required>
+              <md-option value="1">남자</md-option>
+              <md-option value="2">여자</md-option>
+            </md-select>
+            <div class="errors" ng-messages="childInfoForm.childGender.$error" ng-if="childInfoForm.$dirty">
+              <div ng-message="required">Required</div>
+            </div>
+          </md-input-container>
+
+        </form>
+
+        </md-content>
+        </div>
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button class="md-primary" ng-click="answer(childInfo)" ng-disabled="childInfoForm.$invalid">
+        입력완료{{childInfoForm.$invalid}}
+      </md-button>
+      <md-button ng-click="cancel()" style="margin-right:20px;" >
+        취소
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

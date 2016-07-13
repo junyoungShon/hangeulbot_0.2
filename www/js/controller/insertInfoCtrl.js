@@ -24,7 +24,7 @@ angular.module('hangeulbotApp')
     UserInfo.userInfo=$scope.userInfo;
 
     AuthService.register(UserInfo.userInfo,HangeulbotDevice.deviceStatus).then(function(){
-      console.log('안오잖앙여ㅕ기')
+      
       $state.go('insertChildInfo');
     },function(errMsg){
 

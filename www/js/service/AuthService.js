@@ -74,6 +74,24 @@ angular.module('hangeulbotApp')
     });
   };
 
+  var insertChildInfo = function(childInfo){
+    return $q(function(resolve,reject){
+      console.error("넘어갈 데이터 : ",childInfo.childPhoto);
+      $http({
+        method: 'POST', //방식
+        url: API_ENDPOINT.url+'/childInfo',
+        data: childInfo.childPhoto
+        //dataType:'json'
+      }).success(function(data, status, headers, config) {
+        console.log("",data)
+        resolve(data);
+      }).error(function(data, status, headers, config) {
+        console.error("error : ", data)
+        reject("df",data);
+      });
+    })
+  }
+
   /*//로그인을 담당하는 서비스
   var login = function(user) {
     return $q(function(resolve, reject) {
@@ -101,7 +119,8 @@ angular.module('hangeulbotApp')
     logout: logout,*/
     register: register,
     findUserByDeviceId : findUserByDeviceId,
-    isAuthenticated: function() {return isAuthenticated;}
+    isAuthenticated: function() {return isAuthenticated;},
+    insertChildInfo: insertChildInfo
   };
 })
 

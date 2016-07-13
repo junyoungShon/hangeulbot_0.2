@@ -3,8 +3,8 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova','ngMaterial'])
-  .config(function($stateProvider, $urlRouterProvider) {
+angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordova','ngMaterial'])
+  .config(function($stateProvider, $urlRouterProvider,ionicDatePickerProvider) {
 
     $stateProvider
       .state('intro', {
@@ -21,6 +21,24 @@ angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova','ngMaterial'])
       })
 
       $urlRouterProvider.otherwise('intro');
+
+    //datepicker 설정
+    var datePickerObj = {
+      inputDate: new Date(),
+      setLabel: '입력',
+      todayLabel: 'Today',
+      closeLabel: 'Close',
+      mondayFirst: false,
+      weeksList: ["일", "월", "화", "수", "목", "금", "토"],
+      monthsList: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      templateType: 'modal',
+
+      showTodayButton: false,
+      dateFormat: 'yyyy-MMMM-dd',
+      closeOnSelect: false,
+      disableWeekdays: [6]
+    };
+    ionicDatePickerProvider.configDatePicker(datePickerObj);
 
   })
 
@@ -54,7 +72,8 @@ angular.module('hangeulbotApp', ['ionic','ui.router','ngCordova','ngMaterial'])
      currentState : toState.name
      })
      });
-    $state.go('intro');
+    //$state.go('intro');
+    $state.go('insertChildInfo');
   });
 })
 
