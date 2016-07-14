@@ -72,8 +72,8 @@ angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordo
      currentState : toState.name
      })
      });
-    //$state.go('intro');
-    $state.go('insertChildInfo');
+    $state.go('intro');
+    //$state.go('insertChildInfo');
   });
 })
 

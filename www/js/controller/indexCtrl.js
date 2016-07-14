@@ -198,14 +198,10 @@ angular.module('hangeulbotApp')
       hangeulbotUtil.loadingModal(true,'한글봇에 접속을 시도하고있어요!')
       //디바이스 정보를 세팅해준다.
       HangeulbotDevice.setConnectionStauts("connected");
-      HangeulbotDevice.setDeviceId("22:23:22:22");
+      HangeulbotDevice.setDeviceId("22:22:22:22");
       HangeulbotDevice.setDeviceName("ec-2");
       console.log("한글봇 기기정보 객체 : " , HangeulbotDevice.getDeviceStatus());
-      AuthService.findUserByDeviceId(HangeulbotDevice.getDeviceStatus()).then(function(data){
-        HangeulbotDevice.setDeviceId(data.deviceId);
-        hangeulbotUtil.loadingModal(false,'한글봇에접속이 완료되었습니다!')
-        $state.go('insertInfo');
-      },function(){})
+      AuthService.findUserByDeviceId(HangeulbotDevice)
 
     }
 

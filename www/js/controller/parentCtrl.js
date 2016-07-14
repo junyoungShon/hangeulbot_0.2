@@ -3,7 +3,7 @@
  */
 angular.module('hangeulbotApp')
 
-.controller('parentCtrl',function($scope,$ionicLoading,bluetoothService){
+.controller('parentCtrl',function($scope,$ionicLoading,bluetoothService,$ionicPopup){
 
 
 
@@ -17,9 +17,24 @@ angular.module('hangeulbotApp')
     })
   }
 
+  document.addEventListener('deviceready', function () {
+    document.addEventListener('backbutton', function (event) {
+      event.preventDefault();
 
+      event.stopPropagation();
 
+      $ionicPopup.confirm({
+        title: 'System warning',
+        template: 'are you sure you want to exit?'
+      }).then(function(res) {
+        if (res) {
+          ionic.Platform.exitApp();
+        }
+      })
 
+      console.log('hey yaaahh');
+    }, false);
+  }, false);
 
 
 

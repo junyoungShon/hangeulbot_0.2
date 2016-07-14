@@ -3,7 +3,7 @@
  */
 angular.module('hangeulbotApp')
 
-.service('AuthService', function($q, $http, API_ENDPOINT,UserInfo) {
+.service('AuthService', function($q, $http, API_ENDPOINT,UserInfo,$state,UserInfo,hangeulbotUtil) {
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
   var authToken;
@@ -38,41 +38,56 @@ angular.module('hangeulbotApp')
   var findUserByDeviceId = function(hanguelbotDevice){
     return $q(function(resolve,reject){
       $http({
-        method: 'POST', //방식
-        url: API_ENDPOINT.url+'/userInfo',
-        data: hanguelbotDevice,
+        method: 'GET', //방식
+        url: API_ENDPOINT.url+'/userInfoByDeviceId/'+hanguelbotDevice.getDeviceId(),
         dataType:'json',
       }).success(function(data, status, headers, config) {
-        console.log("",data)
-        resolve(data);
+        if(data.flag=="fail"){
+          $state.go('insertInfo');
+        }else{
+          $state.go('insertChildInfo');
+          storeUserCredentials(data.token);
+          UserInfo.userInfo = data.hangeulbotUser;
+        }
+        hangeulbotUtil.loadingModal(false,'한글봇에접속이 완료되었습니다!');
+
       }).error(function(data, status, headers, config) {
 
         reject(result.data.msg);
       });
     })
   }
+
+  var registerCount =0;
   var register = function(userInfo,deviceInfo) {
-    return $q(function(resolve, reject) {
-      deviceInfo.hangeulbotUser = userInfo;
-      console.log("넘어갈 데이터 : " ,deviceInfo)
-      $http({
-        method: 'PUT', //방식
-        url: API_ENDPOINT.url+'/deviceInfoAndUserInfo',
-        data: deviceInfo,
-        dataType:'json'
-      }).success(function(data, status, headers, config) {
-        console.log("HttpStatus : "+ status );
+    if(registerCount==0){
+      return $q(function(resolve, reject) {
+        deviceInfo.hangeulbotUser = userInfo;
+        console.log("넘어갈 데이터 : " ,deviceInfo)
+        $http({
+          method: 'PUT', //방식
+          url: API_ENDPOINT.url+'/deviceInfoAndUserInfo',
+          data: deviceInfo,
+          dataType:'json'
+        }).success(function(data, status, headers, config) {
+          console.log("HttpStatus : "+ status );
 
-        storeUserCredentials(data.token);
-        UserInfo.userInfo = data.hangeulbotUser;
-        resolve(data);
+          storeUserCredentials(data.token);
+          UserInfo.userInfo = data.hangeulbotUser;
+          resolve(data);
 
-      }).error(function(data, status, headers, config) {
-        reject(result.data.msg);
+        }).error(function(data, status, headers, config) {
+          reject(result.data.msg);
+        });
+        registerCount=1;
       });
+    }else{
+      registerCount==0;
+    }
 
-    });
   };
+
+
 
   var insertChildInfo = function(childInfo){
     return $q(function(resolve,reject){

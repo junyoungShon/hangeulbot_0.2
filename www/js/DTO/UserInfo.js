@@ -12,12 +12,24 @@ angular.module('hangeulbotApp')
       child :
         [
           {
-            childIndex : 0,
-            childName :''
+            childIndex : 1,
+            childName :'',
+            childBirth:'',
+            childGender:'',
+            childPhoto:'',
+            childLevel:'',
+            childExp:'',
+            userId:''
           },
           {
             childIndex : 1,
-            childName :''
+            childName :'',
+            childBirth:'',
+            childGender:'',
+            childPhoto:'',
+            childLevel:'',
+            childExp:'',
+            userId:''
           }
         ]
     }

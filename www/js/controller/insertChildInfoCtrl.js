@@ -8,13 +8,19 @@ angular.module('hangeulbotApp')
     $scope.imagePath = 'img/cardBG.jpg'
     $scope.profileImageUrl = 'img/defaultProfile.png';
     $scope.deviceHeight = document.getElementById('contentHeight').offsetHeight-20;
-    $scope.childInfo = {
-      userId : UserInfo.getUserInfo().userId,
-      childNum :'',
-      childName : '',
-      childPhoto : ''
-      //childBirth : ''
+
+    $scope.getChildInfo = function (){
+      console.log("안녕하세욥 유저정보드려욤 드려욥 ",UserInfo.userInfo);
+      console.log("안녕하세욥 아이정보 드려욥 ",UserInfo.userInfo.child);
+      $scope.entireChildNum = UserInfo.userInfo.hangeulbotChildren.length;
+      $scope.childInfoList = UserInfo.userInfo.hangeulbotChildren;
+      console.log("안녕하세욥 복사된 아이정보 드려욥 ",$scope.childInfoList);
     }
+  /*
+    $scope.getChildInfo = function (){
+      for()
+      UserInfo.userInfo.child[0].childName
+    }*/
     $scope.showChildInfoForm = function(ev) {
 
       $mdDialog.show({
@@ -129,7 +135,7 @@ angular.module('hangeulbotApp')
           }
           options.chunkedMode = false;
           console.error("업로드데이터 :" , options);
-          $cordovaFileTransfer.upload(targetPath, encodeURI(url), options).then(function (result) {
+          $cordovaFileTransfer.upload(encodeURI(url),targetPath, options).then(function (result) {
             console.error("SUCCESS: " + JSON.stringify(result.response));
           }, function (err) {
             console.error("ERROR: " + JSON.stringify(err));

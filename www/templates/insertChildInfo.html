@@ -6,50 +6,142 @@
 </style>
 <ion-pane style="background-color: darkslategray;">
 
-    <div ng-controller="insertChildInfoCtrl" id="contentHeight" style="height: 100%;width: 100%">
-      <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" >
-        <div flex="50" layout="column">
-          <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
-            <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
-              <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
-              <h1>Level. 5</h1>
-              <p>(5000/7800)</p>
-              <div class="avatarDiv" STYLE="text-align: center;">
-                <img class="avatar" ng-src="{{profileImageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
-              </div>
+  <div ng-controller="insertChildInfoCtrl" id="contentHeight" style="height: 100%;width: 100%" ng-init="getChildInfo();">
+    <!--두명 등록 되어 있을때 -->
+    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="entireChildNum==2">
+      <div flex="50" layout="column">
+        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
+          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
+            <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
+            <h1>Level. 5</h1>
+            <p>(5000/7800)</p>
+            <div class="avatarDiv" STYLE="text-align: center;">
+              <img class="avatar" ng-src="{{imageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
             </div>
-            <div style="height: 50%;">
-                <md-card-title>
-
-                <md-card-title-text layout-align="none center">
-                  <span class="md-headline">김똘기</span>
-                </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                </md-card-content>
-                <md-card-actions layout="row" layout-align="center center">
-                  <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
-
-                </md-card-actions>
-            </div>
-          </md-card>
-
-        </div>
-
-          <div flex="50" layout="column">
-
-            <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
-              <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
-
-              <md-card-content>
-                <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
-                  <md-icon md-svg-src="img/childPlus.svg"></md-icon>
-                </md-button>
-              </md-card-content>
-
-            </md-card>
           </div>
-      </md-content>
-    </div>
+          <div style="height: 50%;">
+            <md-card-title>
+
+              <md-card-title-text layout-align="none center">
+                <span class="md-headline">김똘기</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
+
+            </md-card-actions>
+          </div>
+        </md-card>
+
+      </div>
+
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
+          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
+            <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
+            <h1>Level. 5</h1>
+            <p>(5000/7800)</p>
+            <div class="avatarDiv" STYLE="text-align: center;">
+              <img class="avatar" ng-src="{{imageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
+            </div>
+          </div>
+          <div style="height: 50%;">
+            <md-card-title>
+
+              <md-card-title-text layout-align="none center">
+                <span class="md-headline">김똘기</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
+
+            </md-card-actions>
+          </div>
+        </md-card>
+      </div>
+    </md-content>
+
+    <!--한명 등록 되어 있을때 -->
+    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="entireChildNum==1">
+      <div flex="50" layout="column">
+        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
+          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
+            <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
+            <h1>Level. 5</h1>
+            <p>(5000/7800)</p>
+            <div class="avatarDiv" STYLE="text-align: center;">
+              <img class="avatar" ng-src="{{imageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
+            </div>
+          </div>
+          <div style="height: 50%;">
+            <md-card-title>
+
+              <md-card-title-text layout-align="none center">
+                <span class="md-headline">김똘기</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
+
+            </md-card-actions>
+          </div>
+        </md-card>
+
+      </div>
+
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
+          <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
+
+          <md-card-content>
+            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
+              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
+            </md-button>
+          </md-card-content>
+
+        </md-card>
+      </div>
+    </md-content>
+
+
+    <!--아무도 등록안되어있을때 -->
+    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="entireChildNum==0">
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
+          <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
+
+          <md-card-content>
+            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
+              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
+            </md-button>
+          </md-card-content>
+
+        </md-card>
+      </div>
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
+          <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
+
+          <md-card-content>
+            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
+              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
+            </md-button>
+          </md-card-content>
+
+        </md-card>
+      </div>
+    </md-content>
+
+  </div>
   </ion-content>
-  </ion-pane>
+</ion-pane>
