@@ -1,4 +1,4 @@
-Ionic App Base
+한글봇 하이브리드 어플리케이션
 =====================
 
 A starting project for Ionic that optionally supports using custom SCSS.
