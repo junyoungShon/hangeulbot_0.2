@@ -2,78 +2,39 @@
  * Created by jyson on 2016. 6. 23..
  */
 angular.module('hangeulbotApp')
-  .factory('HangeulbotDevice',function(){
-
-      var deviceStatus = {
-        isBluetoothEnabled :  '',
-        deviceId : '',
-        deviceName:'',
-        devicePlatform : '',
-        connectionStatus : '',
-      }
-
-      var setDeviceStatus = function(deviceStatus){
-        deviceStatus.deviceStatus = deviceStatus;
-      }
-
-      var getDeviceStatus = function(){
-          return deviceStatus;
-      }
-
-      var setIsBluetoothEnabled = function(isBluetoothEnabled) {
-          deviceStatus.isBluetoothEnabled = isBluetoothEnabled;
-      }
-
-      var getIsBluetoothEnabled = function(){
-        return deviceStatus.isBluetoothEnabled;
-      }
-
-      var getDeviceId = function(){
-          return deviceStatus.deviceId;
-      }
-
-      var setDeviceId = function(deviceId) {
-        deviceStatus.deviceId = deviceId;
-      }
-
-      var getDeviceName = function(){
-        return deviceStatus.deviceName;
-      }
-
-      var setDeviceName = function(deviceName) {
-        deviceStatus.deviceName = deviceName;
-      }
-
-      var getDevicePlatform = function(){
-        return deviceStatus.devicePlatform
-      }
-
-      var setDevicePlatform = function(devicePlatform){
-        deviceStatus.devicePlatform = devicePlatform;
-      }
-
-      var getConnectionStauts = function(){
-        return deviceStatus.connectionStatus;
-      }
-
-      var setConnectionStauts = function(connectionStatus){
-        deviceStatus.connectionStatus = connectionStatus;
-      }
+  .factory('HangeulbotDevice',function($http,$q,API_ENDPOINT){
+    var hangeulbotDevice
 
     return {
-      deviceStatus : deviceStatus,
-      setDeviceStatus : setDeviceStatus,
-      getDeviceStatus : getDeviceStatus,
-      setIsBluetoothEnabled : setIsBluetoothEnabled,
-      getIsBluetoothEnabled : getIsBluetoothEnabled,
-      getDeviceId : getDeviceId,
-      setDeviceId : setDeviceId,
-      getDeviceName : getDeviceName,
-      setDeviceName : setDeviceName,
-      getDevicePlatform : getDevicePlatform,
-      setDevicePlatform : setDevicePlatform,
-      getConnectionStauts : getConnectionStauts,
-      setConnectionStauts : setConnectionStauts
+      hangeulbotDevice : {
+        deviceIdx:'notConnected',
+        deviceId:'notConnected',
+        deviceName:'notConnected',
+        deviceAddress:'notConnected',
+        userId:'notConnected'
+      },
+
+      setHangeulbotDevice : function(hangeulbotDevice){
+        this.hangeulbotDevice = hangeulbotDevice;
+      },
+      getHangeulbotDevice : function(){
+        return this.hangeulbotDevice;
+      },
+
+      getDeviceInfoByDeviceAddress : function(deviceAddress) {
+        return $q(function(resolve,reject){
+          $http({
+            method: 'GET', //방식
+            url: API_ENDPOINT.url+'/isHangeulbotDevice/'+deviceAddress,
+            dataType:'json',
+          }).success(function(data, status, headers, config) {
+            console.log('데이터 도착',data.isHangeulbotDevice+"",status,headers,config);
+            resolve(data);
+          }).error(function(data, status, headers, config) {
+            reject(data);
+          })
+        })
+      }
     }
 
   })

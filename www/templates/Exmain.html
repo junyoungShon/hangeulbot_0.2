@@ -1,0 +1,118 @@
+<style>
+
+  .mainContentsDiv{
+    height: 100%;
+  }
+  .rightDiv{
+    margin-top: 40px;
+  }
+  .leftDiv{
+    margin-top: 5%;
+  }
+  .childProfileDiv{
+    width : 100%;
+    margin-top: 3%;
+  }
+  .childPhotoDiv{
+    width : 100%;
+  }
+  .childPhotoImg{
+    width : 100%;
+    border-radius: 100%;
+  }
+  .nameAndLevelDiv{
+    text-align: center;
+  }
+  .expDiv{
+    text-align: right;
+  }
+  .contentsImageDiv{
+    width : 100%
+  }
+  .contentsImage{
+    width: 80%;
+
+  }
+</style>
+
+<ion-pane ng-controller="mainCtrl" id="contentHeight">
+    <div class="bar bar-header bar-balanced">
+      <button class="button button-icon icon ion-arrow-left-a"></button>
+      <div class="h1 title">한글봇 메인페이지</div>
+      <button class="button button-icon icon ion-navicon-round" ng-click="toggleRight()" ng-hide="isOpenRight()"></button>
+    </div>
+  <ion-content>
+      <div layout="row" layout-margin class="mainContentsDiv">
+        <div flex="20" class="leftDiv">
+          <div class="childProfileDiv">
+            <div class="childPhotoDiv">
+              <img class="childPhotoImg" ng-src="{{hangeulbotChild.childPhoto}}">
+            </div>
+            <div class="nameAndLevelDiv" layout="row">
+              <span class="nameSpan" flex="70%">{{hangeulbotChild.childName|limitTo:7}}</span>
+              <span class="levelSpan" flex="30%">LV. {{hangeulbotChild.childLevel}}</span>
+            </div>
+            <div class="progress-bar blue stripes">
+              <span id="progressWidth" style="width: {{(userInfo.child[userInfo.selectedChild].childExp/userInfo.child[userInfo.selectedChild].nextLevelExp)*100}}%"></span>
+            </div>
+            <div class="expDiv">
+              <span>{{uhangeulbotChild.childExp}}/{{hangeulbotChild.nextLevelExp}}</span>
+            </div>
+            <div class="childDictionary">
+              <button class="button button-full button-balanced">
+                단어도감
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <div flex="80" class="rightDiv">
+          <md-content class="md-padding" style="height:{{deviceHeight}}px;">
+            <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom md-swipe-content md-autoselect>
+              <md-tab ng-repeat="content in contents"
+                      ng-disabled="content.disabled"
+                      label="{{content.category}}">
+                <div class="demo-tab content{{$index%4}}" style="padding: 5px; text-align: center;">
+                  <div class="contentsImageDiv">
+                    <img src ="{{content.contentsImage}}" class="contentsImage">
+                  </div>
+                  <div ng-bind="content.content"></div>
+                  <br/>
+                  <md-button class="md-primary md-raised" ng-click="goContent('{{content.contentId}}')">Play</md-button>
+                </div>
+              </md-tab>
+            </md-tabs>
+          </md-content>
+        </div>
+      </div>
+  </ion-content>
+  <md-sidenav class="md-sidenav-right md-disable-backdrop md-whiteframe-4dp" md-component-id="right">
+    <!--<md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Sidenav Right</h1>
+    </md-toolbar>-->
+    <md-content ng-controller="RightCtrl" layout-padding>
+
+      <md-subheader class="md-no-sticky">한글봇 사용 아이</md-subheader>
+
+      <md-list-item ng-repeat="child in hangeulbotUser.hangeulbotChildren" ng-click="goToPerson(userInfo)" class="noright" ng-hide="child[{{$index}}].childName==''">
+        <img alt="{{ child.childName }}" ng-src="{{ child.childPhoto }}" class="md-avatar" />
+        <p>{{ child.childName }}</p>
+      </md-list-item>
+
+      <md-subheader class="md-no-sticky">한글봇 메뉴</md-subheader>
+      <md-list-item class="noright">
+        <p ng-click="goStatisticsPage()">아이 통계보러 가기</p>
+      </md-list-item>
+      <md-list-item class="noright">
+        <p>아이 콘텐츠 구성하기</p>
+      </md-list-item>
+
+      <md-subheader class="md-no-sticky">한글봇 디바이스 상태</md-subheader>
+      <md-list-item class="noright">
+        <md-icon md-svg-icon="img/bluetooth.svg"></md-icon>
+        <p> 블루투스 </p>
+        <md-switch class="md-secondary" ng-model="setting.enabled"></md-switch>
+      </md-list-item>
+    </md-content>
+  </md-sidenav>
+</ion-pane>>

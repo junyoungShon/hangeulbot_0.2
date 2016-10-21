@@ -1,0 +1,258 @@
+<style>
+
+  .roadStyleBg{
+    background-color: #828593;
+    overflow: hidden;
+  }
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+  .sortBtn{
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width : 100%;
+  }
+  .sortBtnList{
+    width:100%;
+  }
+  .studyProgressDiv{
+    width : 100%;
+
+  }
+  @media screen and (max-width: 600px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 75%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 25%;
+      min-width : 120px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:190px
+    }
+  }
+  @media screen and (min-width: 601px) and (max-width: 666px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 80%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 20%;
+      min-width : 120px;
+      padding-left: 5px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:220px
+    }
+  }
+  @media screen and (min-width: 667px) and (max-width:766px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 85%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 15%;
+      min-width : 120px;
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:250px
+    }
+  }
+  @media screen and (min-width: 767px) and (max-width: 960px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 85%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 15%;
+      min-width : 120px;
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:320px
+    }
+  }
+  @media screen and (min-width: 961px) and (max-width: 1024px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 85%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 15%;
+      min-width : 120px;
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:370px
+    }
+  }
+  @media screen and (min-width: 1025px){
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 90%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 10%;
+      min-width : 120px;
+      line-height: 40px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:480px
+    }
+  }
+
+  .studyBest {
+    float: left;
+    background: #3ba8a8; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#3ba8a8, #5fc1c7); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3ba8a8, #5fc1c7); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3ba8a8, #5fc1c7); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3ba8a8, #5fc1c7); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .studyGood {
+    float:left;
+    background: #f99c15; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#f99c15, #ffb53e); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#f99c15, #ffb53e); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#f99c15, #ffb53e); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#f99c15, #ffb53e); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+  }
+  .studyNotRecorded {
+    float: right;
+    background: #cc3a6e; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#cc3a6e, #f74d82); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#cc3a6e, #f74d82); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#cc3a6e, #f74d82); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#cc3a6e, #f74d82); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+  }
+  .studyWorst {
+    float: right;
+    background: #4f396b; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#4f396b, #785b95); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#4f396b, #785b95); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#4f396b, #785b95); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#4f396b, #785b95); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .studyProgress{
+    box-shadow: inset 30px 30px 10px 0px rgba(0,0,0,0.5);
+    border-radius: 5px;
+  }
+
+  .railLoad{
+    width:75%
+  }
+  .railSide{
+    width:25%;
+  }
+  .pencil{
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
+<div ng-controller="statisticsPageCtrl" class="roadStyleBg" style="color: black">
+  <div class="topController">
+    <!--소트 버튼 학습율-->
+    <div class="sortingBtnDiv" style="text-align:center">
+      <div class="row" style="margin-left:5px;">
+
+        <div class="sortBtnList" ng-repeat="phoenixBtn in phoenixBtnList" ng-click="phoenixSorting($index)"
+             style="margin-right: {{deviceWidth/135}}px;">
+
+          <div class="sortBtn" style="background-image: url('{{phoenixBtn.AUrl}}');
+            height:{{deviceHeight/6.34}}px;" ng-show="phoenixBtn.isActivated">
+
+          </div>
+          <div class="sortBtn" style="background-image: url('{{phoenixBtn.DAUrl}}');
+            height:{{deviceHeight/6.34}}px;" ng-hide="phoenixBtn.isActivated">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--단어 학습율-->
+    <div id="studyProgressDiv" class="studyProgressDiv" style="margin-top: {{deviceHeight/40}}px;">
+      <div class="left progressTitle">
+        단어학습률
+      </div>
+      <div class="studyProgress">
+        <div class="studyBest" style="width:{{bestRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+        <div class="studyGood" style="width:{{goodRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+        <div class="studyWorst" style="width:{{worstRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+        <div class="studyNotRecorded" style="width:{{notRecordedRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="detailImages">
+    <div class="left railLoad">
+      <div class="rail" style="">
+
+      </div>
+    </div>
+    <div class="right railSide">
+      <div class="pencil" ng-repeat="pencil in pencils" style="background-image: url('{{pencil}}');margin-bottom: 30px">
+
+      </div>
+    </div>
+  </div>
+</div>

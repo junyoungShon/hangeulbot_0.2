@@ -1,0 +1,348 @@
+<style>
+
+  .mainBG{
+    //background-image: url("img/main/main_bg01.png");
+    background-color:#cce9e4;
+    width:100%;
+    text-align:center;
+    padding-bottom:180px;
+    background-size: cover;
+  }
+  .mainHeader{
+    margin-bottom: 10px;
+    overflow: auto;
+  }
+  .sideBarBtnDiv{
+    background-image: url("img/main/sidebarBtn.png");
+    background-size: cover;
+    width:94px;
+    height:94px;
+    float:right;
+    margin-top: -148px;
+    z-index: 100;
+  }
+  .headerImgDiv{
+    width: 100%;
+    float:left
+  }
+  .headerImg{
+    width: 100%;
+  }
+  /*.sideBarBtn{
+    color:white;
+  }*/
+  .contentsListDiv{
+    padding : 10px;
+    border-radius: 20px;
+    background-color: white;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top:-10px;
+  }
+  .contentImageDiv{
+    width:90%;
+    height:300px;
+    margin-bottom: 10px;
+    margin-left: 5%;
+  }
+  .contentImage{
+    width: 100%;
+  }
+  .tabTitle{
+    color:black;
+    font-weight: 400;
+    font-size: 25px;
+  }
+
+  .contentsListFooter{
+    overflow: auto;
+  }
+  .contentsListFooterLeft{
+    float: left;
+  }
+  .contentsListFooterRight{
+    float: right;
+  }
+  .contentsListFooterImg{
+    width: 50%;
+  }
+
+  .sideBarHeader{
+    background-color: #5fc1c7;
+    color: white;
+    font-size:18px;
+    font-weight: 400;
+    height:64px;
+    vertical-align: middle;
+  }
+  .sideBarFoldDiv1{
+    height:64px;
+    position: fixed;
+    width:320px;
+  }
+  .sideBarFoldDiv2{
+    height:64px;
+    position: fixed;
+    margin-top: 64px;
+    width:320px;
+  }
+  .sideBarAvatar1{
+    width: 40px;
+    height: 40px;
+    background-image: url("img/main/icon_sidemenu_profile01.png");
+    background-size: cover;
+    float:left;
+  }
+  .sideBarAvatar2{
+    width: 40px;
+    height: 40px;
+    background-image: url("img/main/icon_sidemenu_profile02.png");
+    background-size: cover;
+    float:left;
+  }
+  .sideBarStatisticsIcon{
+    width: 30px;
+    height: 30px;
+    background-image: url("img/main/icon_sidemenu_stats.png");
+    background-size: cover;
+    float:left;
+  }
+  .sideBarContentsCompositorIcon{
+    width: 30px;
+    height: 30px;
+    background-image: url("img/main/icon_sidemenu_content.png");
+    background-size: cover;
+    float:left;
+  }
+
+
+  .sideBarFoldBtn{
+    width:100px;
+    height: 30px;
+    border-width:1px;
+    border-color: #cccccc;
+    border-style: solid;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top:-6px;
+  }
+  .usingChildName{
+    line-height: 30px;
+    font-weight: 600;
+  }
+  .sideBarSelector{
+    font-size:16px;
+    line-height: 40px;
+    font-weight: 600;
+    color: black;
+    margin-left: 20px;
+  }
+  .sideBarMenuSelector{
+    color: #5fc1c7;
+  }
+  .childChanger{
+    font-weight: 800;
+    margin-top:10px;
+    margin-right:10px;
+    z-index: 9999;
+  }
+  .left{
+    float:left
+  }
+  .right{
+    float:right;
+  }
+  .mainChildPhotoDiv{
+    width : 320px;
+    height : 320px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+  }
+
+  .childInfoChanger{
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    background-image: url("img/main/icon_sidemenu_setting.png");
+    float: right;
+    margin-top: -40px;
+    margin-right:30px
+  }
+  .mainChildPhoto{
+    border-radius: 200px;
+    width:80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
+  }
+  .subsubHeader{
+    font-size: 18px;
+    font-weight: 600;
+    color:dimgrey;
+    height:64px;
+    line-height: 30px;
+    border-bottom-style: solid;
+    border-bottom-width:0.5px;
+    border-bottom-color: lightgrey;
+    border-top-style:solid;
+    border-top-width:1px;
+    border-top-color: lightgrey;
+  }
+  /*.md-no-sticky{
+    padding-left: 20px;
+  }*/
+</style>
+
+<ion-pane ng-controller="mainCtrl" id="contentHeight" ng-init="mainInit();">
+
+
+  <ion-content>
+    <div class="mainBG">
+      <div>
+        <div class="mainHeader">
+          <div class="headerImgDiv">
+            <img src="img/main/main_top_logo.png" class="headerImg">
+          </div>
+          <div class="sideBarBtnDiv" ng-click="toggleRight()">
+            <!--<button class="button button-icon icon ion-navicon-round sideBarBtn" ></button>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="contentsListDiv">
+        <md-content class="md-padding">
+          <md-tabs md-selected="selectedIndex" md-border-bottom md-dynamic-height md-autoselect>
+            <md-tab ng-repeat="tab in tabs">
+              <md-tab-label>
+                <div class="tabTitle">{{tab.title}}</div>
+              </md-tab-label>
+              <md-tab-body>
+              <div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
+                <md-content class="md-padding" layout-xs="column" layout="row">
+                <div flex-xs flex-gt-xs="50" layout="column">
+                  <!--ng-click="goContent('{{content.contentId}}')-->
+                  <div flex class="contentImageDiv" ng-repeat="content in hangeulbotContentsList" ng-if="$even" ng-click="showPopup($index)">
+                      <img src="{{content.contentThumb}}" class="contentImage">
+                  </div>
+                </div>
+                <div flex-xs flex-gt-xs="50" layout="column">
+                  <div flex class="contentImageDiv" ng-repeat="content in hangeulbotContentsList" ng-if="$odd" ng-click="showPopup($index)">
+                    <img src="{{content.contentThumb}}" class="contentImage">
+                  </div>
+                </div>
+                </md-content>
+              </div>
+              </md-tab-body>
+            </md-tab>
+          </md-tabs>
+        </md-content>
+        <div class="contentsListFooter">
+          <md-content class="md-padding" layout-xs="column" layout="row">
+            <div flex-xs flex-gt-xs="50" layout="column">
+              <div class="contentsListFooterLeft">
+                <img src="img/main/main_footer01.png" class="contentsListFooterImg">
+              </div>
+            </div>
+            <div flex-xs flex-gt-xs="50" layout="column">
+          <div class="contentsListFooterRight">
+            <img src="img/main/main_footer02.png" class="contentsListFooterImg">
+          </div>
+        </div>
+            </md-content>
+      </div>
+</div>
+    </div>
+    <!--
+      상세콘텐츠 설명 팝업 구역icon_popup_close.png
+    -->
+    <div class="contentDetailPopup" ng-show="activeContentPopup"
+      style="width: 100%;height:100%;background-color: rgba( 0, 0, 0, 0.6 );z-index:9999;position: fixed;top: {{getNowScroll()}}px;left: 0px">
+      <div class="contentDetailPopupArea"
+           style="background-image:url('{{hangeulbotContentsList[selectedContentNum].contentPopup}}');width:70%;height:90%;margin-left: 15%;margin-top:5%;
+            background-size: contain;background-repeat: no-repeat">
+        <div class="contentDetailPopupClose" style="background-image: url('img/main/icon_popup_close.png');background-size: contain;background-repeat: no-repeat;
+         width:{{deviceWidth/20}}px;height:{{deviceWidth/20}}px;float: right;margin-top: -{{deviceWidth/40}}px;margin-right: -{{deviceWidth/40}}px "
+          ng-click="hidePopup()">
+
+        </div>
+        <div class="contentDetailPopupPlay">
+          <img src="img/main/icon_popup_play.png" style="width:{{deviceWidth/5}}px; margin-left: {{deviceWidth/4}}px;margin-top: {{deviceWidth/2.3}}px;"
+               ng-click="goContent()">
+        </div>
+      </div>
+    </div>
+
+
+  </ion-content>
+  <md-sidenav class="md-sidenav-right md-disable-backdrop md-whiteframe-4dp" md-component-id="right">
+    <!--<md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Sidenav Right</h1>
+    </md-toolbar>-->
+    <md-content ng-controller="RightCtrl">
+
+      <md-subheader class="md-no-sticky sideBarHeader">
+        <div class="left">
+          <span class="usingChildName">{{hangeulbotChild.childName}}</span> [사용중] <span class="usingChildName"> Level {{hangeulbotChild.childExp}}</span>
+        </div>
+        <div class="right childChanger" ng-click="changeSideBarFoldActive()">
+          <i class="ion-arrow-down-b" ng-hide="sideBarFoldActive"></i>
+          <i class="ion-arrow-up-b" ng-show="sideBarFoldActive"></i>
+        </div>
+      </md-subheader>
+      <div ng-show="sideBarFoldActive">
+        <md-subheader class="md-no-sticky sideBarFoldDiv1">
+          <div class="sideBarAvatar1">
+
+          </div>
+          <span class="sideBarSelector">{{notSelectedChild.childName}}</span>
+          <div class="right childChanger">
+            <div class="sideBarFoldBtn" ng-click="changeMainChild()">사용자 변경</div>
+          </div>
+        </md-subheader>
+        <md-subheader class="md-no-sticky sideBarFoldDiv2">
+          <div class="sideBarAvatar2">
+
+          </div>
+          <span class="sideBarSelector">부모정보 변경</span>
+          <div class="right childChanger">
+            <div class="sideBarFoldBtn">정보 변경</div>
+          </div>
+        </md-subheader>
+      </div>
+
+      <div class="mainChildPhotoDiv">
+        <img src="{{hangeulbotChild.childPhoto}}" class="mainChildPhoto"/>
+        <div class="childInfoChanger">
+
+        </div>
+      </div>
+
+      <md-subheader class="md-no-sticky subsubHeader">한글봇 기본 메뉴</md-subheader>
+      <md-list-item class="noright md-no-sticky">
+        <div class="sideBarStatisticsIcon">
+
+        </div>
+        <p ng-click="goStatisticsPage()" class="sideBarSelector sideBarMenuSelector">아이 통계보러 가기</p>
+
+      </md-list-item>
+      <md-list-item class="noright md-no-sticky">
+        <div class="sideBarContentsCompositorIcon">
+
+        </div>
+        <p class="sideBarSelector sideBarMenuSelector">아이 콘텐츠 구성하기</p>
+      </md-list-item>
+
+      <md-subheader class="md-no-sticky subsubHeader">한글봇 디바이스 상태</md-subheader>
+      <md-list-item class="noright">
+        <md-icon md-svg-icon="img/bluetooth.svg"></md-icon>
+        <p class="sideBarSelector"> 블루투스 연결상태 보기</p>
+        <md-switch class="md-secondary" ng-model="setting.enabled"></md-switch>
+      </md-list-item>
+    </md-content>
+  </md-sidenav>
+</ion-pane>

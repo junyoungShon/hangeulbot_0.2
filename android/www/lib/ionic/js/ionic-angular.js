@@ -1804,6 +1804,7 @@ IonicModule
 
   // Default
   // -------------------------
+  //noinspection JSAnnotator
   setPlatformConfig('default', {
 
     views: {
@@ -1861,6 +1862,7 @@ IonicModule
 
   // Android
   // -------------------------
+  //noinspection JSAnnotator
   setPlatformConfig('android', {
 
     views: {

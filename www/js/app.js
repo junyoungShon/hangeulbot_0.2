@@ -3,9 +3,11 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordova','ngMaterial'])
-  .config(function($stateProvider, $urlRouterProvider,ionicDatePickerProvider) {
+angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordova','ngMaterial','rwdImageMaps','chart.js','720kb.fx'])
 
+  .config(function($stateProvider, $urlRouterProvider,ionicDatePickerProvider,$ionicConfigProvider,$mdGestureProvider) {
+    // angularMaterial vs ionic 같이쓰니까 두번클릭됨 이걸로 일단 막을 수 있음
+    $mdGestureProvider.skipClickHijack();
     $stateProvider
       .state('intro', {
         url: 'intro',
@@ -13,37 +15,38 @@ angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordo
       })
       .state('insertInfo', {
         url: 'insertInfo',
-        templateUrl: 'templates/insertInfo.html'
+        templateUrl: 'templates/insertInfo.html',
+        controller: 'insertInfoCtrl'
+      })
+      .state('selectChild', {
+        url: 'selectChild',
+        templateUrl: 'templates/selectChild.html'
       })
       .state('insertChildInfo', {
         url: 'insertInfoChildInfo',
         templateUrl: 'templates/insertChildInfo.html'
       })
-
+      .state('main', {
+        url: 'main',
+        templateUrl: 'templates/main.html'
+      })
+      .state('contentView',{
+        cache:false,
+        url:'contentView/:contentId',
+        templateUrl : 'templates/contentView.html'
+      })
+      .state('statisticsPage', {
+        url: 'statisticsPage',
+        templateUrl: 'templates/statisticsPage.html'
+      })
       $urlRouterProvider.otherwise('intro');
 
-    //datepicker 설정
-    var datePickerObj = {
-      inputDate: new Date(),
-      setLabel: '입력',
-      todayLabel: 'Today',
-      closeLabel: 'Close',
-      mondayFirst: false,
-      weeksList: ["일", "월", "화", "수", "목", "금", "토"],
-      monthsList: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-      templateType: 'modal',
-
-      showTodayButton: false,
-      dateFormat: 'yyyy-MMMM-dd',
-      closeOnSelect: false,
-      disableWeekdays: [6]
-    };
-    ionicDatePickerProvider.configDatePicker(datePickerObj);
 
   })
 
-.run(function($ionicPlatform,$state,$rootScope,AuthService) {
+.run(function($ionicPlatform,$state,$rootScope,AuthService,$cordovaSplashscreen) {
   $ionicPlatform.ready(function() {
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -52,30 +55,24 @@ angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordo
       // Don't remove this line unless you know what you are doing. It stops the viewport
       // from snapping when text inputs are focused. Ionic handles sdasdthis internally for
       // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
+      cordova.plugins.Keyboard.disableScroll(false);
+    }
+    if(navigator.splashscreen) {
+      $cordovaSplashscreen.hide();
     }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.hide();
     }
-    //인터셉터로서의 역할을 담당한다. 비로그인 상태에서 다른 url로 접근할 경우 무조건 login 페이지로 이동시킴
-    $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
-      if (!AuthService.isAuthenticated()) {
-         console.log(next.name);
-         if (next.name !== 'intro' && next.name !== 'insertInfo') {
-           event.preventDefault();
-           $state.go('intro');
-         }
-       }
-     });
-     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-     $rootScope.$broadcast("currenStateUpated",{
-     currentState : toState.name
-     })
-     });
-    $state.go('intro');
+
+    //$state.go('intro');
+    //$state.go('contentView');
+    $state.go('statisticsPage');
+    //
+    //$state.go('main');
+    //$state.go('insertInfo')
     //$state.go('insertChildInfo');
+    //$state.go('selectChild');
   });
 })
-
 
 

@@ -1,0 +1,125 @@
+<ion-pane ng-controller="contentViewCtrl" id="contentHeight" ng-init="contentLoad()" cache-view="false">
+  <!--<script src="http://192.168.0.146:8888/static/contentJS/defaultGame.js"></script>-->
+  <style>
+    img[usemap] {
+      border: none;
+      height: auto;
+      max-width: 90%;
+      width: auto;
+    }
+
+    #custom-overlay {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: all linear 0.5s;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      background:url("img/contentView/play_finish_bg.png") no-repeat center center fixed ;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+    /*650x510*/
+    #custom-overlay #finishMark {
+      postion: fixed;
+      margin: 0 auto;
+
+      z-index: 21;
+      background-repeat: no-repeat;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+    }
+    #finishMark{
+      postion: fixed;
+    }
+    .sample-show-hide {
+      transition: all linear 1s;
+    }
+    .sample-show-hide.ng-hide {
+      opacity: 0;
+    }
+    @media screen and (max-width: 799px) {
+      .statusText{
+        font-size: 12px;
+      }
+      .percentageText{
+        font-size: 15px;
+      }
+    }
+    @media screen and (min-width: 800px) and (max-width: 1100px) {
+      .statusText{
+        font-size: 20px;
+      }
+      .percentageText{
+        font-size: 20px;
+      }
+    }
+    @media screen and (min-width: 1101px) {
+      .statusText{
+        font-size: 25px;
+      }
+      .percentageText{
+        font-size: 20px;
+      }
+    }
+  </style>
+
+
+  <script>loadingGame();</script>
+
+  <div id="gameEngine" ng-show="isGameengine">
+
+  </div>
+  <div id="ngInclude" ng-show="!isGameengine" ng-include="includeUrl">
+
+  </div>
+
+
+  <div class="contentsController" id="contentDIV"
+       style="width: 100%;position: fixed;">
+    <div id="custom-overlay" ng-show="finishShow">
+      <div id="finishMark" style="width:{{deviceWidth/1.96}}px; height:{{deviceWidth/1.96}}px;background-image:url('{{finishStar}}');
+      margin-top:{{deviceHeight/15}}px">
+        <div style="margin-top: 80%;text-align: center">
+          <img src="img/contentView/btn_finish_again.png" style="width:{{deviceWidth/5.05}}px;margin-right: {{deviceWidth/100}}px;" ng-click="wantToReplay(true)">
+          <img src="img/contentView/btn_finish_main.png" style="width:{{deviceWidth/5.05}}px;" ng-click="wantToReplay(false)">
+        </div>
+      </div>
+
+    </div>
+
+
+      <div class="contentStatusBar" style="height: {{deviceHeight/8}}px;background-color: {{contentStatusBarColor}};padding-top:{{deviceHeight/23}}px ">
+          <div style="margin-left:{{deviceWidth/25.6}}px;float: left;width: {{deviceWidth/5.12}}px">
+            <span class="statusText" style="color: #333333;font-weight: 600;" onClick="submitAnswer('나비')">똘기떵이</span>
+            <span class="statusText" style="color: #333333;font-weight: 600;margin-left: {{deviceWidth/100}}px" onClick="submitAnswer('차돌박이')">Level 2.1</span>
+          </div>
+          <div class="progress-bar blue stripes" style="width:{{deviceWidth/1.8}}px;margin-top: 5px;height:{{deviceHeight/26}}px;text-align: left;background-color: #77e0e0">
+            <!--<span id="progressWidth" style="width: {{cotentProgress}}%;height:24px;text-align: center">
+              <strong style="line-height: 27px">{{cotentProgress}}%</strong>
+            </span>-->
+            <span id="progressWidth" style="min-width:50px;width: {{cotentProgress}}%;height:{{deviceHeight/26}}px;text-align: center">
+              <strong class="percentageText" style="line-height: {{deviceHeight/26}}px;min-width:50px">{{cotentProgress}}%</strong>
+            </span>
+          </div>
+          <div class="endBtn" style="">
+            <!--<button class="button button-assertive"
+                    style="height:20px;margin-left: 1%;min-height: 20px;height: 25px;line-height: 15px;"
+                    ng-click="exitGame()">-->
+              <img src="img/contentView/play01_btn_stop.png"
+                   style="width:{{deviceWidth/6.73}}px;height:{{deviceHeight/13.33}}px;margin-left:{{deviceWidth/25.6}}px;margin-top: -{{deviceHeight/60}}px "
+                   ng-click="exitGame()">
+            </button>
+          </div>
+      </div>
+    </div>
+
+</ion-pane>

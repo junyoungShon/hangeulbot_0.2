@@ -1,4 +1,4 @@
-<ion-pane>
+<ion-view>
   <ion-content>
 
       <!--부모 컨트롤러 : {{isBluetoothEnabled}}-->
@@ -11,14 +11,14 @@
 
         <div class="connectDiv">
           <p ng-if="userCondition=='bluetoothDisabled'" ng-click="isEnabledBluetooth()">기기의 블루투스를 활성화시키고 재탐색 버튼을 눌러주세요!</p>
-          <p ng-if="userCondition=='findNone'" ng-click="discoverDevices()">주변에 한글봇이 없는 것 같아요! 한글봇 전원을 확인해주세요</p>
+          <p ng-if="userCondition=='findNone'" ng-click="discoverDevices()">주변에 한글봇이 없는 것 같아요! 한글봇 전원을 확인해주시거나 한글봇이 없으시면 구경하기를 눌러주세요</p>
           <p ng-if="userCondition=='findOverTwoDevice'">아래의 한글봇들 중에 플레이할 한글봇을 선택해서 connect 해주세요</p>
           <div class="connectBtnDiv">
             <button class="button button-block button-positive" ng-if="userCondition=='findOneDevice'" ng-click="connect(device);">
               Connect
             </button>
-            <button class="button button-block button-positive" ng-if="userCondition=='findNone'" ng-click="connect(device);">
-              재탐색
+            <button class="button button-block button-positive" ng-if="userCondition=='findNone'" ng-click="guestMode(device);">
+              구경하기
             </button>
             <button class="button button-block button-positive" ng-if="userCondition=='bluetoothDisabled'" ng-click="connect(device);">
               재탐색
@@ -36,11 +36,11 @@
         </div>
 
         <!--현재 블루투스 기능이 꺼져있을 때 출력되는 화면 -->
-        <div class="enableDiv" ng-if="userCondition=='bluetoothDisabled'" ng-click="connect(device);">
+        <div class="enableDiv" ng-if="userCondition=='bluetoothDisabled'" ng-click="isEnabledBluetooth();">
           <div class="connectBtnDiv">
           </div>
         </div>
       </div>
 
   </ion-content>
-</ion-pane>
+</ion-view>

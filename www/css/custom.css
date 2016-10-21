@@ -1,9 +1,243 @@
 
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-/*@import url('https://cdn.rawgit.com/singihae/Webfonts/master/style.css');*/
-body *{
-  font-family: 'BM JUA','배달의민족 주아','BM HANNA','배달의민족 한나','Nanum Gothic', serif;
+@import url(NanumGothic.css);
+@import url(roboto/roboto.css);
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }
+
+body *{
+  font-family: 'NanumGothic', Roboto;
+}
+/* 커스텀 얼럿 디자인 CSS */
+.popup-container .popup{
+  width : 60%;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 5px 8px 0 rgba(0,0,0,.14),0 1px 14px 0 rgba(0,0,0,.12);
+}
+.popup-container{
+  background-image: url("../img/alert_bg.png");
+  background-size: contain;
+}
+/* 회원가입 페이지 및 아이정보 입력 페이지 */
+.popup-container .popup-head{
+  background-color: #5fc1c7;
+  border-radius: 10px 10px 0px 0px;
+}
+.popup-title{
+  font-size: 30px;
+  font-weight: 600;
+  color:white;
+}
+.popup-body{
+  padding: 0px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #666666;
+  vertical-align: middle;
+}
+.alertList{
+  text-align: center;
+}
+.alertPlainText {
+  padding: 20px;
+}
+.rightBtn{
+  background-color: #7a7d8c;
+  font-size: 27px;
+  font-weight: 600;
+  border-radius: 5px;
+  color: white;
+}
+.leftBtn{
+  background-color: #5fc1c7;
+  font-size: 27px;
+  font-weight: 600;
+  border-radius: 5px;
+  color: white;
+}
+.closeIconDiv{
+  background-image: url('../img/profile/icon_close.png');
+  width: 96px;
+  height: 96px;
+  background-size: cover;
+  float: right;
+  margin-top: 12px;
+}
+.headTitle{
+  font-weight: 600;
+  font-size: 40px;
+  float: left;
+  margin-top: 28px;
+  padding-left: 80px;
+  width:40%;
+}
+.headerBar{
+  width: 100%;
+  height: 120px;
+  background-color: #5fc1c7;
+  color:white;
+  vertical-align: middle;
+  margin-bottom: 80px;
+  position:fixed;
+  top:0;
+}
+.joinBody{
+  padding: 8px;
+  background-color: rgba( 0, 0, 0, 0.6 );
+}
+.profileBody{
+  background-color: #e4f4f2;
+}
+.titleFont{
+  font-size: 32px;
+  font-weight: 600;
+  color: black;
+}
+.customInput{
+  font-size: 32px;
+  font-weight: 400;
+}
+input{
+  font-size: 32px;
+  font-weight: 400;
+}
+.customOption{
+  font-size: 32px;
+  font-weight: 400;
+}
+.noticeDiv{
+  background-color:#f3f4f8;
+  color:#4d4d4d;
+  font-size: 25px;
+  width: 90%;
+  margin-left: 5%;
+  padding: 40px;
+  border-radius: 20px;
+  height: 220px;
+  line-height: 1.5em;
+}
+.acceptDiv{
+  padding: 18px;
+  font-size: 24px;
+  color: #4d4d4d;
+}
+
+.warningIcon{
+  width:35px;
+  height: 35px;
+  padding-left:15px;
+  padding-top: 2px;
+  background-color: #e95377;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  float:left;
+  border-radius: 2px;
+}
+.acceptIcon{
+  width:35px;
+  height: 35px;
+  padding-left:8px;
+  padding-top: 2px;
+  background-color: #5fc1c7;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  float:left;
+  border-radius: 2px;
+}
+.noAcceptIcon{
+  width:35px;
+  height: 35px;
+  padding-left:8px;
+  padding-top: 2px;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  float:left;
+  border-radius: 2px;
+  border-color: lightgrey;
+  border-style: solid;
+  border-width: 1px;
+}
+.warningDiv{
+  padding: 18px;
+  font-size: 24px;
+  color: #e95377;
+}
+.customCheckbox{
+
+}
+.insertInfoWrapper{
+  margin-top: 150px;
+}
+/*.gender-radio md-radio-button , md-radio-button.md-checked ._md-off{
+  background-color: #5fc1c7;
+  height:48px;
+  width: 48px;
+  border-color: #5fc1c7;
+
+}
+.gender-radio md-radio-button , md-radio-button.md-checked ._md-on{
+  background-color: white;
+  height:48px;
+  width: 48px;
+}
+.gender-radio md-radio-button , md-radio-button.md-unchecked ._md-off{
+  background-color: #5fc1c7;
+  height:48px;
+  width: 48px;
+  border-color: #5fc1c7;
+
+}*/
+.photoAreaDiv{
+  width: 300px;
+  height: 300px;
+  background-color: #f3f4f8;
+  border-radius: 150px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+.photoDiv{
+  width:260px;
+  height:260px;
+  border-radius: 130px;
+  background-size: cover;
+  padding-top: 20px;
+  margin-left: 20px;
+  background-image: url("../img/profile/icon_photo_info.png");
+}
+.submitBtnDiv{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.submitBtn{
+  width: 320px;
+  height: 90px;
+  border-radius: 20px;
+  background-color: #e95377;
+  color:white;
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 auto;
+  border-width: 0px;
+}
+.photoAddBtn{
+  width: 320px;
+  height: 90px;
+  border-radius: 20px;
+  background-color: #7a7d8c;
+  color:white;
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 auto;
+  border-width: 0px;
+}
+
 .introLogo{
   width:30%;
   margin-left:35%;
@@ -27,22 +261,17 @@ body *{
   padding-top : 10%
 }
 
-.progress-bar {
-  background-color: #1a1a1a;
-  height: 25px;
-  padding: 5px;
-  width: 50%;
-  margin: 50px 0;
+/*.progress-bar {
+  background-color: aliceblue;
+  height: 15px;
+  width: 100%;
   border-radius: 5px;
-  box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+  box-shadow: 0 1px 5px #fff inset, 0 1px 0 #444;
   text-align: left;
-  text-align: left; /* 문자들의 가운데 정렬을 해제 */
-  margin: 0 auto;
-  margin-left:25%;
-}
+  margin-top : 10%;
+}*/
 
 .insertInfoWrapper{
-  padding:20px;
 }
 
 .progress-bar span {

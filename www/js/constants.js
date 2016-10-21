@@ -7,9 +7,16 @@ angular.module('hangeulbotApp')
     notAuthenticated: 'auth-not-authenticated'
   })
 
+
+
   .constant('API_ENDPOINT', {
+    //url : 'http://127.0.0.1:8888'
     url: 'http://192.168.0.146:8888'
+    //url: 'http://hangeulbotelasticbeans-env.ap-northeast-2.elasticbeanstalk.com'
     //url:'http://192.168.0.146:8888'
     //For a simulator use: url: 'http://192.168.0.146:8888'
     //For a Desktop use: url: '/api'
+    ,
+    ResourceUrl: 'http://192.168.0.146:8888/static/'
+    //ResourceUrl : 'http://hangeulbotelasticbeans-env.ap-northeast-2.elasticbeanstalk.com'
   });

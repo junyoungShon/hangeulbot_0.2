@@ -3,71 +3,156 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="img-src * 'self' data:; default-src * 'self' gap: ; style-src 'self' 'unsafe-inline'; script-src * 'self' 'unsafe-inline' 'unsafe-eval'; ">
     <title></title>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+    <!--애니메이션 임포트-->
+    <link href="lib/animate.css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="lib/angular-fx/dist/angular-fx.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="lib/angular-material/css/angular-material.min.css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+    <script src="cordova.js"></script>
+    <!--<script type="text/javascript" src="../plugins/cordova-plugin-screen-orientation/www/screenorientation.ios.js"></script>-->
+
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>-->
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>-->
+    <!--<script src="lib/angular/angular.min.js"></script>-->
+    <script src="lib/angular-material/js/angular-aria.min.js"></script>
+    <script src="lib/angular-animate/angular-animate.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>-->
+
+    <!-- Angular Material Library -->
+    <script src="lib/angular-material/js/angular-material.min.js"></script>
+
+
+    <!--jQuery-->
+    <script src="statistics/js/jquery-1.11.1.min.js"></script>
+
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src='statistics/js/lumino.glyphs.js'></script>
+    <!-- 블루투스 js 파일 -->
+    <script type="text/javascript" src="js/bluetooth.js"></script>
+    <script src="js/app.js"></script>
+
+    <!--콘텐츠 관련 라이브러리 -->
+    <script src="lib/phaser/phaser.min.js"></script>
+
+    <!--자모음 분리기 -->
+    <script src="js/util/Hangul.js" type="text/javascript"></script>
+    <!--이미지 맵 디렉티브-->
+    <script src="js/directive/rwdImageMaps.js"></script>
+    <!--Controller js -->
+    <script src="js/controller/parentCtrl.js"></script>
+    <script src="js/controller/indexCtrl.js"></script>
+    <script src="js/controller/insertInfoCtrl.js"></script>
+    <script src="js/controller/selectChildCtrl.js"></script>
+    <script src="js/controller/insertChildInfoCtrl.js"></script>
+    <script src="js/controller/mainCtrl.js"></script>
+    <script src="js/controller/contentViewCtrl.js"></script>
+    <script src="js/controller/statisticsPageCtrl.js"></script>
+
+    <!--Service js -->
+    <script src="js/service/bluetoothService.js"></script>
+    <script src="js/service/AuthService.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/util/hangeulbotUtil.js"></script>
+    <script src="js/service/ProfileService.js"></script>
+    <script src="js/service/APIService.js"></script>
+    <script src="js/service/SoundService.js"></script>
+
+    <!--DTO Service js -->
+    <script src="js/DTO/HangeulbotDevice.js"></script>
+    <script src="js/DTO/HangeulbotUser.js"></script>
+    <script src="js/DTO/Device.js"></script>
+    <script src="js/DTO/HangeulbotChild.js"></script>
+    <script src="js/DTO/DataService.js"></script>
+    <!--Directive -->
+    <script src="js/directive/validation.js"></script>
+    <!-- 챠트 관련 JS 파일 임포트 -->
+    <script src="lib/jquery.easy-pie-chart/dist/angular.easypiechart.min.js"></script>
+    <script src="lib/chart.js/dist/Chart.js"></script>
+    <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
+
+    <script src="lib/angular-fx/dist/angular-fx.min.js"></script>
+
+   <style>
+
+      #custom-overlay {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all linear 0.5s;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background-color: #fdeeec;
+        /*background:url("img/bg11.jpeg") no-repeat center center fixed ;*/
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      #custom-overlay img {
+        postion: relative;
+        margin: 0 auto;
+      }
+
+     #custom-overlay-text-div{
+       position:relative;
+       margin : 0 auto;
+     }
+      /* Tablet & Desktop Device */
+      @media all and (max-width:768px) {
+        /*사용자 해상도가 768px 이상일 때 이 코드가 실행됨. 테블릿과 데스크톱의 공통 코드를 작성한다.*/
+        #custom-overlay-text{
+          font-weight:600;
+          font-size:18px;
+        }
+      }
+
+      /* Tablet Device */
+      @media all and (min-width:768px) and (max-width:3000px) {
+        /*사용자 해상도가 768px 이상이고 1024px 이하일 때 이 코드가 실행됨. 아이패드 또는 비교적 작은 해상도의 랩탑이나 데스크톱에 대응하는 코드를 작성한다.*/
+        #custom-overlay-text{
+          font-size: 26px;
+          font-weight:600;
+        }
+      }
+    </style>
   </head>
-  <body ng-app="hangeulbotApp">
-  <div class="parent" ng-controller="parentCtrl">
-    <ion-nav-view></ion-nav-view>
+  <body ng-cloak ng-app="hangeulbotApp">
+  <div class="parent" ng-controller="parentCtrl" ng-click="playTouchSound()" ng-init="readyMusic()">
+    <div id="custom-overlay" ng-show="loadingTrue">
+      <img src="img/loading_30frame_600x600.gif" style="width : {{deviceWidth/1.6}}px; height:{{deviceWidth/1.6}}px; ">
+      <div id="custom-overlay-text-div" style="width:{{deviceWidth/1.7}}px;text-align: center;">
+        <div id="custom-overlay-text" style="margin-top: -55%;">
+         {{loadingMessage}}
+        </div>
+      </div>
+    </div>
+  <ion-nav-view></ion-nav-view>
   </div>
   </body>
-  <script type="text/javascript">
-    //bluetooth.initialize();
-  </script>
 
-  <!-- ionic/angularjs js -->
-  <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-  <!-- cordova script (this will be a 404 during development) -->
-  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-
-  <script src="cordova.js"></script>
-
-
-
-  <!-- Angular Material requires Angular.js Libraries -->
-  <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>-->
-  <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>-->
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
-  <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>-->
-
-  <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-
-
-  <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
-  <script src="js/custom.js"></script>
-
-  <!-- 블루투스 js 파일 -->
-  <script type="text/javascript" src="js/bluetooth.js"></script>
-  <script src="js/app.js"></script>
-  <!--Controller js -->
-  <script src="js/controller/parentCtrl.js"></script>
-  <script src="js/controller/indexCtrl.js"></script>
-  <script src="js/controller/insertInfoCtrl.js"></script>
-  <script src="js/controller/insertChildInfoCtrl.js"></script>
-
-  <!--Service js -->
-  <script src="js/service/bluetoothService.js"></script>
-  <script src="js/service/AuthService.js"></script>
-  <script src="js/constants.js"></script>
-  <script src="js/util/hangeulbotUtil.js"></script>
-  <script src="js/service/ProfileService.js"></script>
-
-  <!--DTO Service js -->
-  <script src="js/DTO/HangeulbotDevice.js"></script>
-  <script src="js/DTO/UserInfo.js"></script>
-
-  <!--Directive -->
-  <script src="js/directive/validation.js"></script>
 
 </html>

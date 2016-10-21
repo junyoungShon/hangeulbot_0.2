@@ -1,147 +1,190 @@
 <style>
-
-  .action-sheet-backdrop{
-    z-index: 9999;
+  .platform-android .action-sheet-cancel{
+    display: block;
+  }
+  .photoUploadTitle{
+    font-size: 24px;
+  }
+  .photoUploadCancel{
+    font-size: 24px;
+    margin-left: -25px;
+  }
+  .photoUploadTitleText{
+    padding-left: 25px;
+    font-size: 17px;
   }
 </style>
-<ion-pane style="background-color: darkslategray;">
 
-  <div ng-controller="insertChildInfoCtrl" id="contentHeight" style="height: 100%;width: 100%" ng-init="getChildInfo();">
-    <!--두명 등록 되어 있을때 -->
-    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="entireChildNum==2">
-      <div flex="50" layout="column">
-        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
-          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
-            <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
-            <h1>Level. 5</h1>
-            <p>(5000/7800)</p>
-            <div class="avatarDiv" STYLE="text-align: center;">
-              <img class="avatar" ng-src="{{imageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
+<ion-content class="joinBody" id="contentHeight" ng-controller="insertChildInfoCtrl">
+
+  <div>
+    <div layout="column" layout-align="center none" ng-init="initInsertInfoCtrl()" style="background-color: white;min-height: {{insertInfoHeight}}px;">
+      <div class="headerBar">
+        <div class="headTitle">아이 정보 입력</div>
+        <div class="closeIconDiv" ng-click="cancel()"></div>
+      </div>
+      <div class="insertInfoWrapper">
+        <form class="form-horizontal" name="childInfoForm" novalidate>
+          <div layout="row" layout-sm="column">
+            <div flex style="padding-left: 70px;">
+              <md-content>
+                <div style="width: 90%">
+
+
+                  <span class="titleFont">아이 이름</span>
+                  <md-input-container md-no-float class="md-block customInput">
+                    <input name="userId" style="height: 50px" aria-label="aria-label" type="text"
+                           required name="childName" ng-model="childInfo.childName" ng-change="childNameInvalidator()">
+                  </md-input-container>
+
+                  <span class="titleFont">아이 생일</span>
+                  <!--<div ng-click="openDatePicker()">
+                    <md-input-container class="md-block customInput">
+                      <input required name="childBirth" ng-model="childInfo.childBirth" value="childInfo.childBirth" required disabled ng-touched>
+                      {{childInfo.childBirth}}
+
+                    </md-input-container>
+                  </div>-->
+                  <div layout="row" style="width: 100%">
+                    <md-input-container class="md-block" flex>
+                      <md-select ng-model="childYear" ng-change="childBirthChanger()" required style="height: 50px">
+                        <md-option ng-repeat="year in years" value="{{year}}" >
+                          <span class="customOption">{{year}}년</span>
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex>
+                      <md-select ng-model="childMonth" ng-change="childBirthChanger()" required style="height: 50px">
+                        <md-option ng-repeat="month in months" value="{{month}}">
+                          <span class="customOption">{{month}}월</span>
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex>
+                      <md-select ng-model="childDay" ng-change="childBirthChanger()" required style="height: 50px">
+                        <md-option ng-repeat="day in days" value="{{day}}" class="customOption">
+                          <span class="customOption">{{day}}일</span>
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                  <!--<md-input-container md-no-float class="md-block customInput">
+                    <input style="height: 50px;font-size: 32px;font-weight: 400" aria-label="label" type="password"
+                           ng-model="userInfo.password" ng-minlength="8" ng-maxlength="15" name="password" ng-pattern="regex.passwordRegex"
+                           required/>
+                    <input required name="childBirth" ng-model="childInfo.childBirth" value="childInfo.childBirth" required disabled ng-touched style="display: none;">
+                    {{childInfo.childBirth}}
+                  </md-input-container>-->
+                  <span class="titleFont">성별</span>
+                  <md-input-container md-no-float class="md-block customInput">
+                    <md-radio-group layout="row" name="childGender" ng-model="childInfo.childGender" required>
+
+                      <md-radio-button value="1" md-hue1 md-warn>남아</md-radio-button>
+                      <md-radio-button value="2" md-hue1 md-warn> 여아 </md-radio-button>
+
+                    </md-radio-group>
+                  </md-input-container>
+                </div>
+
+              </md-content>
             </div>
-          </div>
-          <div style="height: 50%;">
-            <md-card-title>
-
-              <md-card-title-text layout-align="none center">
-                <span class="md-headline">김똘기</span>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="center center">
-              <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
-
-            </md-card-actions>
-          </div>
-        </md-card>
-
-      </div>
-
-      <div flex="50" layout="column">
-
-        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
-          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
-            <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
-            <h1>Level. 5</h1>
-            <p>(5000/7800)</p>
-            <div class="avatarDiv" STYLE="text-align: center;">
-              <img class="avatar" ng-src="{{imageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
+            <div flex>
+              <div class="photoAreaDiv">
+                <div class="photoDiv" style="background-image: url('{{profileImageUrl}}')"></div>
+              </div>
+              <div class="submitBtnDiv" >
+                <!--<div class="submitBtn" ng-disabled="userRegisterForm.userId.$invalid||duplicateEmail.$invalid||!userInfo.isAgreed||userRegisterForm.password.$invalid
+           ||userRegisterForm.phoneNumber.$invalid"
+                     ng-click="insertUserInfo()">가입하기</div>-->
+                <button class="photoAddBtn"
+                        ng-click="selectOption()">사진 추가</button>
+              </div>
+              <div class="submitBtnDiv" >
+                <!--<div class="submitBtn" ng-disabled="userRegisterForm.userId.$invalid||duplicateEmail.$invalid||!userInfo.isAgreed||userRegisterForm.password.$invalid
+           ||userRegisterForm.phoneNumber.$invalid"
+                     ng-click="insertUserInfo()">가입하기</div>-->
+                <button class="submitBtn" ng-click="submitChildInfo(childInfo)" ng-disabled="childInfoForm.$invalid">입력 완료</button>
+              </div>
             </div>
+
           </div>
-          <div style="height: 50%;">
-            <md-card-title>
+        </form>
 
-              <md-card-title-text layout-align="none center">
-                <span class="md-headline">김똘기</span>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="center center">
-              <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
-
-            </md-card-actions>
+ <!-- <div ng-controller="insertChildInfoCtrl" >
+  <div>
+    <md-toolbar>
+      <div class="md-toolbar-tools" id="headerHeight">
+        <h2 class="col col-offset-90"><span>아이 정보 입력</span></h2>
+        &lt;!&ndash;<md-button class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="img/ic_clear.svg" style="color: greenyellow;"></md-icon>
+        </md-button>&ndash;&gt;
+        <md-button class="md-raised col col-10" aria-label="Learn More" ng-click="cancel()" style="float:left">
+          입력 취소
+        </md-button>
+      </div>
+    </md-toolbar>-->
+  <!--<ion-content style="vertical-align: middle">-->
+    <!--<div hide show-md flex style="height: 200px;">
+      Shown on medium size devices only.
+    </div>
+      <div layout="row" style="margin-top: {{headerHeight+5}}px">
+        <div flex="30">
+          <div class="avatarDiv" STYLE="text-align: center;">
+            &lt;!&ndash;<img class="avatar" src="http://192.168.0.146:8888/static/childPhoto/intro_logo.png" style="height:auto; width:80%; border-radius: 400px;margin: 0 auto">&ndash;&gt;
+            <img class="avatar" src="{{profileImageUrl}}" style="width:{{profileImgSize-20}}px;height:{{profileImgSize-20}}px; border-radius: 400px;margin: 0 auto">
           </div>
-        </md-card>
-      </div>
-    </md-content>
-
-    <!--한명 등록 되어 있을때 -->
-    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="entireChildNum==1">
-      <div flex="50" layout="column">
-        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
-          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
-            <!--<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">-->
-            <h1>Level. 5</h1>
-            <p>(5000/7800)</p>
-            <div class="avatarDiv" STYLE="text-align: center;">
-              <img class="avatar" ng-src="{{imageUrl}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
-            </div>
+          <div style="width: 80%; text-align: center; margin-left: 10%">
+            <button class="button button-block button-energized" ng-click="selectOption()">
+              <strong>사진추가</strong>
+            </button>
           </div>
-          <div style="height: 50%;">
-            <md-card-title>
-
-              <md-card-title-text layout-align="none center">
-                <span class="md-headline">김똘기</span>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="center center">
-              <md-button class="md-raised md-warn" style="width:80%"><strong>Play!</strong></md-button>
-
-            </md-card-actions>
-          </div>
-        </md-card>
+        </div>
+        <div flex="70">
+          <form name="childInfoForm" novalidate id="formHeight">
+            <md-content layout-padding>
+              <md-input-container class="md-block">
+                <label>아이 이름</label>
+                <input required name="childName" ng-model="childInfo.childName" ng-change="childNameInvalidator()"/>
+              </md-input-container>
+              <div ng-click="openDatePicker()">
+                <md-input-container class="md-block">
+                  <label>아이 생일</label>
+                  <input required name="childBirth" ng-model="childInfo.childBirth" value="childInfo.childBirth" required disabled ng-touched style="display: none;">
+                  {{childInfo.childBirth}}
+                 &lt;!&ndash; <div ng-messages="childInfoForm.childBirth.$error" ng-show="childInfoForm.childBirth.$invalid">
+                    <div ng-message="required">아이 생일을 입력해주세요.</div>
+                  </div>&ndash;&gt;
+                </md-input-container>
+              </div>
+              <md-input-container class="md-block">
+                <label>성별</label>
+                <md-select name="childGender" ng-model="childInfo.childGender" required>
+                  <md-option value="1">남자</md-option>
+                  <md-option value="2">여자</md-option>
+                </md-select>
+                &lt;!&ndash;<div class="errors" ng-messages="childInfoForm.childGender.$error" ng-if="childInfoForm.$dirty">
+                  &lt;!&ndash;<div ng-message="required">Required</div>&ndash;&gt;
+                </div>&ndash;&gt;
+              </md-input-container>
+            </md-content>
+          </form>
+          <span flex style="color:red;font-weight: bolder">{{alertStatement}}</span>
+        </div>
 
       </div>
+      &lt;!&ndash;<md-button class="md-primary" ng-click="submitChildInfo(childInfo)" ng-disabled="childInfoForm.$invalid">
+        입력완료{{childInfoForm.childName.$invalid}}{{childInfoForm.childBirth.$invalid}}{{childInfoForm.childGender.$invalid}}
+      </md-button>
+      <md-button ng-click="cancel()" style="margin-right:20px;" >
+        취소
+      </md-button>&ndash;&gt;
+  </div>-->
+<!--</ion-content>-->
 
-      <div flex="50" layout="column">
-
-        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
-          <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
-
-          <md-card-content>
-            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
-              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
-            </md-button>
-          </md-card-content>
-
-        </md-card>
-      </div>
-    </md-content>
-
-
-    <!--아무도 등록안되어있을때 -->
-    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="entireChildNum==0">
-      <div flex="50" layout="column">
-
-        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
-          <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
-
-          <md-card-content>
-            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
-              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
-            </md-button>
-          </md-card-content>
-
-        </md-card>
-      </div>
-      <div flex="50" layout="column">
-
-        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
-          <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
-
-          <md-card-content>
-            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="showChildInfoForm()">
-              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
-            </md-button>
-          </md-card-content>
-
-        </md-card>
-      </div>
-    </md-content>
-
+   <!-- <div class="bar bar-footer" style="padding:0px;">
+        <button class="button button-block button-balanced" ng-click="submitChildInfo(childInfo)" style="margin-top:0px;margin-bottom:0px"><h4><strong>입력완료</strong></h4></button>
+    </div>
+-->
   </div>
   </ion-content>
-</ion-pane>

@@ -3,8 +3,8 @@
  */
 angular.module('hangeulbotApp')
 
-.service('AuthService', function($q, $http, API_ENDPOINT,UserInfo,$state,UserInfo,hangeulbotUtil) {
-  var LOCAL_TOKEN_KEY = 'yourTokenKey';
+.service('AuthService', function($q, $http, API_ENDPOINT,$state,hangeulbotUtil) {
+  var LOCAL_TOKEN_KEY = 'hangeulbot!';
   var isAuthenticated = false;
   var authToken;
 
@@ -33,71 +33,16 @@ angular.module('hangeulbotApp')
     $http.defaults.headers.common.Authorization = undefined;
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
-
-
-  var findUserByDeviceId = function(hanguelbotDevice){
-    return $q(function(resolve,reject){
-      $http({
-        method: 'GET', //방식
-        url: API_ENDPOINT.url+'/userInfoByDeviceId/'+hanguelbotDevice.getDeviceId(),
-        dataType:'json',
-      }).success(function(data, status, headers, config) {
-        if(data.flag=="fail"){
-          $state.go('insertInfo');
-        }else{
-          $state.go('insertChildInfo');
-          storeUserCredentials(data.token);
-          UserInfo.userInfo = data.hangeulbotUser;
-        }
-        hangeulbotUtil.loadingModal(false,'한글봇에접속이 완료되었습니다!');
-
-      }).error(function(data, status, headers, config) {
-
-        reject(result.data.msg);
-      });
-    })
-  }
-
-  var registerCount =0;
-  var register = function(userInfo,deviceInfo) {
-    if(registerCount==0){
-      return $q(function(resolve, reject) {
-        deviceInfo.hangeulbotUser = userInfo;
-        console.log("넘어갈 데이터 : " ,deviceInfo)
-        $http({
-          method: 'PUT', //방식
-          url: API_ENDPOINT.url+'/deviceInfoAndUserInfo',
-          data: deviceInfo,
-          dataType:'json'
-        }).success(function(data, status, headers, config) {
-          console.log("HttpStatus : "+ status );
-
-          storeUserCredentials(data.token);
-          UserInfo.userInfo = data.hangeulbotUser;
-          resolve(data);
-
-        }).error(function(data, status, headers, config) {
-          reject(result.data.msg);
-        });
-        registerCount=1;
-      });
-    }else{
-      registerCount==0;
-    }
-
-  };
-
-
-
   var insertChildInfo = function(childInfo){
     return $q(function(resolve,reject){
-      console.error("넘어갈 데이터 : ",childInfo.childPhoto);
+      console.error("넘어갈 데이터 : ",childInfo);
       $http({
         method: 'POST', //방식
         url: API_ENDPOINT.url+'/childInfo',
-        data: childInfo.childPhoto
+        data: childInfo
         //dataType:'json'
       }).success(function(data, status, headers, config) {
+
         console.log("",data)
         resolve(data);
       }).error(function(data, status, headers, config) {
@@ -107,40 +52,25 @@ angular.module('hangeulbotApp')
     })
   }
 
-  /*//로그인을 담당하는 서비스
-  var login = function(user) {
-    return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + '/api_memberLogin.do', user).then(function(result) {
-        console.log(result.data.success);
-        if (result.data.success) {
-          console.log(result.data.token);
-          storeUserCredentials(result.data.token);
-          resolve(result.data.msg);
-        } else {
-          reject(result.data.msg);
-        }
-      });
-    });
-  };*/
-
-  /*var logout = function() {
-    destroyUserCredentials();
-  };*/
-
   loadUserCredentials();
 
   return {
     /*login: login,
     logout: logout,*/
-    register: register,
-    findUserByDeviceId : findUserByDeviceId,
     isAuthenticated: function() {return isAuthenticated;},
+    storeUserCredentials : storeUserCredentials,
     insertChildInfo: insertChildInfo
   };
 })
 
   .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
     return {
+      request: function(config) {
+        if (!AUTH_EVENTS.notAuthenticated) {
+          config.headers['authorization'] = authToken;
+        }
+        return config;
+      },
       responseError: function (response) {
         $rootScope.$broadcast({
           401: AUTH_EVENTS.notAuthenticated,
@@ -149,7 +79,6 @@ angular.module('hangeulbotApp')
       }
     };
   })
-
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push('AuthInterceptor');
   });

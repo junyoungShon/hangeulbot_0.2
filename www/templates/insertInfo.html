@@ -1,90 +1,94 @@
-    <ion-pane>
-      <ion-content>
-        <style>
+<style>
 
 
-        </style>
-      <div layout="column" layout-align="center none" ng-controller="insertInfoCtrl">
-        <div class="insertInfoWrapper">
-          <div hide-sm hide-xs flex style="height:40px"></div>
-          <div style="margin-bottom:20px">
-            <h3>부모님 정보 입력</h3>
-            <div hide-sm hide-xs flex style="height:40px;"></div>
-            <small>본 정보는 통계 접근, 아이 추가 및 정보 수정 , 콘텐츠 구입 등 <strong>부모님의 활동을 위해 저장되고,관리됩니다.</strong></small>
-          </div>
-          <div hide-sm hide-xs flex style="height:40px"></div>
-          <div>
-            <form class="form-horizontal" name="userRegisterForm" novalidate>
-              <div class="form-group" ng-class="{ 'has-error': userRegisterForm.userId.$touched && userRegisterForm.userId.$invalid}">
-                <label for="inputEmail3" class="col-xs-2 control-label">이메일</label>
-                <div class="col-xs-10">
+</style>
+      <!-
+      todo
+      좌측정렬 / 버튼 알값이랑 높이 줄이기-슬림하게 / 공지사항 수직정렬 /
+      ->
 
-                  <input type="email" class="form-control has-error" id="inputEmail3" placeholder="example@example.com" name="userId"
-                         ng-model="userInfo.userId" ng-minlength="5" ng-maxlength="30" ng-pattern="regex.emailRegex" duplicate-email
-                         ng-model-options="{allowInvalid: true}" required>
+      <ion-content class="joinBody" id="contentHeight">
 
-                </div>
-              </div>
-              <div hide-sm hide-xs flex style="height:40px"></div>
-              <div class="form-group" ng-class="{ 'has-error': userRegisterForm.password.$touched && userRegisterForm.password.$invalid }">
-                <label for="inputPassword3" class="col-xs-2 control-label">암호</label>
-                <div class="col-xs-10">
-
-                  <input type="password" class="form-control" id="inputPassword3" placeholder="암호를 입력해주세요"
-                         ng-model="userInfo.password" ng-minlength="8" ng-maxlength="15" name="password" ng-pattern="regex.passwordRegex"
-                          required>
-
-                </div>
-              </div>
-              <div hide-sm hide-xs flex style="height:40px"></div>
-              <div class="form-group" ng-class="{ 'has-error': userRegisterForm.phoneNumber.$touched && userRegisterForm.phoneNumber.$invalid }">
-                <label for="inputConfirm3" class="col-xs-2 control-label">휴대폰</label>
-                <div class="col-xs-10">
-
-                  <input type="text" class="form-control" id="inputConfirm3" placeholder="휴대전화번호를 입력해주세요(ex 01000000000 )"
-                         ng-model="userInfo.phoneNumber" ng-pattern="regex.phoneRegex" name="phoneNumber"
-                          required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-xs-10">
-                  <div class="checkbox" style="margin-top:-20px;">
-                    <label>
-                      <input type="checkbox" name="isAgreed" ng-model="userInfo.isAgreed" required>
-                      <span style="line-height: 35px;margin-left:20px;"><a href="#">약관</a>에 동의하십니까?</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <p class="joinError" ng-show="userRegisterForm.userId.$error.pattern">이메일 형식이 옳지않습니다.</p>
-                <p class="joinError" ng-show="userRegisterForm.userId.$error.minlength">이메일은 5글자 이상 작성해주세요</p>
-                <p class="joinError" ng-show="userRegisterForm.userId.$error.maxlength">이메일은 30글자 이하로 작성해주세요</p>
-
-                <p class="joinError" ng-show="userRegisterForm.password.$error.minlength">비밀번호는 8글자 이상 작성해주세요</p>
-                <p class="joinError" ng-show="userRegisterForm.password.$error.maxlength">비밀번호는 15글자 이하로 작성해주세요</p>
-                <p class="joinError" ng-show="userRegisterForm.password.$error.pattern">비밀번호는 숫자와 문자를 혼합해주세요</p>
-
-                <p class="joinError" ng-show="userRegisterForm.phoneNumber.$error.pattern">휴대전화 올바르게 입력해주세요</p>
-
-              </div>
-            </form>
-          </div>
-          <div>
-            <div hide-sm hide-xs style="height:40px"></div>
-           <button type="submit" class="btn btn-default btn-block btn-warning" ng-disabled="userRegisterForm.userId.$invalid||duplicateEmail.$invalid||!userInfo.isAgreed||userRegisterForm.password.$invalid
-           ||userRegisterForm.phoneNumber.$invalid"
-                   ng-click="insertUserInfo()">가입하기</button>
-          </div>
-
+      <div>
+      <div layout="column" layout-align="center none" ng-init="initInsertInfoCtrl()" style="background-color: white;min-height: {{insertInfoHeight}}px;">
+        <div class="headerBar">
+            <div class="headTitle">부모 정보 입력</div>
+            <div class="closeIconDiv"></div>
         </div>
-      </div>
+        <div class="insertInfoWrapper">
+          <form class="form-horizontal" name="userRegisterForm" novalidate>
+          <div layout="row" layout-sm="column">
+            <div flex style="padding-left: 70px;">
+              <md-content>
+                <div style="width: 90%">
+                  <span class="titleFont">이메일</span>
+                  <md-input-container md-no-float class="md-block customInput">
+                    <!--<input name="userId" style="height: 50px" aria-label="aria-label" placeholder="example@hangulbot.com" type="email"
+                           ng-model="userInfo.userId" ng-minlength="5" ng-maxlength="30" ng-pattern="regex.emailRegex" ng-model-options="{allowInvalid: true}"
+                           duplicate-email required>-->
+                    <input name="userId" style="height: 50px" aria-label="aria-label" placeholder="example@hangulbot.com" type="email"
+                           ng-model="userInfo.userId" ng-minlength="5" ng-maxlength="30" ng-pattern="regex.emailRegex" ng-model-options="{allowInvalid: true}"
+                           required>
+                  </md-input-container>
 
+                  <span class="titleFont">비밀번호</span>
+                  <md-input-container md-no-float class="md-block customInput">
+                    <input style="height: 50px;font-size: 32px;font-weight: 400" aria-label="label" type="password"
+                           ng-model="userInfo.password" ng-minlength="8" ng-maxlength="15" name="password" ng-pattern="regex.passwordRegex"
+                           required/>
+                  </md-input-container>
+                  <span class="titleFont">휴대폰</span>
+                  <md-input-container md-no-float class="md-block customInput">
+                    <input id="inputConfirm3" aria-label="label" style="height: 50px" type="text"
+                           ng-model="userInfo.phoneNumber" ng-pattern="regex.phoneRegex" name="phoneNumber" placeholder="01012345678"
+                           required/>
+                  </md-input-container>
 
+                </div>
+
+              </md-content>
+            </div>
+            <div flex>
+                <div class="noticeDiv">
+                  <span>
+                    본 정보는 데이터 통계 접근 및 아이추가,  정보수정 콘텐츠 구입 등 부모님의 기본 활동을 위하여 저장되고 관리됩니다.
+                  </span>
+                </div>
+                <div class="acceptDiv">
+                  <div class="acceptIcon" ng-show="userInfo.isAgreed" ng-click="changeAgree(false)">
+                    <!--<i class="icon ion-checkmark" style="font-weight: 800;font-size: 32px"></i>-->
+                    <i class="icon ion-checkmark-round" style="font-weight: 800;font-size: 25px"></i>
+                  </div>
+                  <div class="noAcceptIcon" ng-show="!userInfo.isAgreed" ng-click="changeAgree(true)">
+                    <!--<i class="icon ion-checkmark" style="font-weight: 800;font-size: 32px"></i>-->
+
+                  </div>
+                  <span style="padding-left: 20px">
+                    <a href="http://www.hangulbot.com/blank-1" style="text-decoration: underline;color:#5fc1c7">개인정보취급방침</a> 약관에 동의합니다.
+                    </span>
+                </div>
+                <div class="warningDiv" ng-show="userRegisterForm.userId.$invalid||duplicateEmail.$invalid||!userInfo.isAgreed||userRegisterForm.password.$invalid
+           ||userRegisterForm.phoneNumber.$invalid">
+                  <div class="warningIcon">
+                    <!--<i class="icon ion-checkmark" style="font-weight: 800;font-size: 32px"></i>-->
+                    <i class="icon ion-alert" style="font-weight: 800;font-size: 25px"></i>
+                  </div>
+                  <span style="padding-left: 20px">가입양식을 다시 한번 확인해주세요</span>
+                </div>
+              <div class="submitBtnDiv" >
+                <!--<div class="submitBtn" ng-disabled="userRegisterForm.userId.$invalid||duplicateEmail.$invalid||!userInfo.isAgreed||userRegisterForm.password.$invalid
+           ||userRegisterForm.phoneNumber.$invalid"
+                     ng-click="insertUserInfo()">가입하기</div>-->
+                <button class="submitBtn" ng-disabled="userRegisterForm.userId.$invalid||duplicateEmail.$invalid||!userInfo.isAgreed||userRegisterForm.password.$invalid
+           ||userRegisterForm.phoneNumber.$invalid"
+                     ng-click="insertUserInfo()">가입하기</button>
+              </div>
+            </div>
+
+          </div>
+            </form>
+</div>
       </ion-content>
-    </ion-pane>
-
 
 
 

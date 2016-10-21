@@ -1,0 +1,413 @@
+<style xmlns:background-image="http://www.w3.org/1999/xhtml">
+.profileDiv{
+  z-index: 1000;
+  margin-top: 3%;
+}
+/*.profile1{
+  background-image: url("img/profile/profile_02_bg_crop.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height:100%;
+  width: 100%;
+}
+.profile2{
+  background-image: url("img/profile/profile_02_bg_crop.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}*/
+.registeredprofileImage{
+  margin-left:25%;
+  border-radius: 300px;
+
+  background-size: cover;
+
+}
+.unRegisteredprofileImage{
+  margin-left:25%;
+  border-radius: 300px;
+  background-size: cover;
+  background-color: lightgrey;
+}
+.outsideBox{
+  width: 95%;
+  height: 85%;
+  background-color: #aedfdc;
+  border-radius: 5%;
+  margin-left: 2.5%;
+  padding:2%;
+
+}
+.insideBox{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5%;
+  }
+
+/* Tablet & Desktop Device */
+@media all and (max-width:768px) {
+  /*사용자 해상도가 768px 이상일 때 이 코드가 실행됨. 테블릿과 데스크톱의 공통 코드를 작성한다.*/
+  .childInfoText{
+    font-weight:600;
+  }
+}
+
+/* Tablet Device */
+@media all and (min-width:768px) and (max-width:3000px) {
+  /*사용자 해상도가 768px 이상이고 1024px 이하일 때 이 코드가 실행됨. 아이패드 또는 비교적 작은 해상도의 랩탑이나 데스크톱에 대응하는 코드를 작성한다.*/
+  .childInfoText{
+    font-size: 26px;
+    font-weight:600;
+  }
+}
+
+
+</style>
+
+<ion-content class="profileBody" id="contentHeight" ng-init="getChildInfo();" ng-controller="selectChildInfoCtrl">
+    <ion-pane>
+    <div layout="column" layout-align="center none" style="background-color: #e4f4f2;vertical-align: middle">
+
+
+      <!--아이가 두명일 때-->
+      <div layout="row" ng-if="entireChildNum==2">
+        <div flex>
+          <div class="profileDiv" style="height:{{deviceHeight}}px;">
+            <img src="img/profile/profile_bg_label.png" style="height:{{(deviceHeight/8.5)}}px;margin-left: 32%">
+            <div class="outsideBox">
+              <div class="insideBox" style="padding-top: {{(deviceHeight/30)}}px">
+                <div class="registeredprofileImage" style="width:{{deviceWidth/5}}px;height:{{deviceWidth/5}}px;
+                      background-image: url('{{childInfoList[0].childPhoto}}');">
+                  <img src="img/profile/profile_02_img_top.png" style="width:{{deviceWidth/2.2}}px;margin-left: -62%">
+                  <img src="img/profile/profile_02_over.png" style="width:{{deviceWidth/5}}px;margin-top:-{{(deviceWidth/6)}}px">
+                </div>
+                <div class="boxBottom" style="padding-top:{{deviceHeight/30}}px; ">
+                  <div class="childInfoDiv" style="height:{{deviceHeight/3}}px;margin-top:{{deviceHeight/25}}px;float: left;width:40%;">
+                    <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;
+                          margin-top:{{deviceHeight/32}}px;">
+                      이름 : {{childInfoList[0].childName}}
+                    </div>
+                    <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;">
+                      생일 : {{childInfoList[0].childBirth}}
+                    </div>
+                    <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;">
+                      성별 : {{childInfoList[0].childGender}}
+                    </div>
+                  </div>
+
+                  <div class="childInfoDiv"
+                       style="height:{{deviceHeight/4}}px;float: right;width:40%;
+                           margin-top:{{deviceHeight/4}}px;
+                           margin-bottom: {{deviceHeight/30}}px;margin-right: {{deviceWidth/30}}px;position: fixed">
+                    <img src="img/profile/profile_02_img_bottom.png"
+                         style="width:{{deviceWidth/6}}px;
+                             margin-left: {{deviceWidth/3.7}}px;margin-top:-{{deviceWidth/7}}px ">
+                    <img src="img/profile/btn_play_profile.png" ng-click="goMainContentPage(0)"
+                         style="width: {{deviceWidth/6}}px;margin-left: {{deviceWidth/3.7}}px;margin-top:-{{deviceHeight/30}}px">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div flex>
+          <div class="profileDiv" style="height:{{deviceHeight}}px;">
+            <img src="img/profile/profile_bg_label.png" style="height:{{(deviceHeight/8.5)}}px;margin-left: 32%">
+            <div class="outsideBox">
+              <div class="insideBox" style="padding-top: {{(deviceHeight/30)}}px">
+                <div class="registeredprofileImage" style="width:{{deviceWidth/5}}px;height:{{deviceWidth/5}}px;
+                      background-image: url('{{childInfoList[1].childPhoto}}');">
+                  <img src="img/profile/profile_02_img_top.png" style="width:{{deviceWidth/2.2}}px;margin-left: -62%">
+                  <img src="img/profile/profile_02_over.png" style="width:{{deviceWidth/5}}px;margin-top:-{{(deviceWidth/6)}}px">
+                </div>
+                <div class="boxBottom" style="padding-top:{{deviceHeight/30}}px; ">
+                  <div class="childInfoDiv" style="height:{{deviceHeight/3}}px;margin-top:{{deviceHeight/25}}px;float: left;width:40%;">
+                    <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;
+                          margin-top:{{deviceHeight/32}}px;">
+                      이름 : {{childInfoList[1].childName}}
+                    </div>
+                    <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;">
+                      생일 : {{childInfoList[1].childBirth}}
+                    </div>
+                    <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;">
+                      성별 : {{childInfoList[1].childGender}}
+                    </div>
+                  </div>
+
+                  <div class="childInfoDiv"
+                       style="height:{{deviceHeight/4}}px;float: right;width:40%;
+                           margin-top:{{deviceHeight/4}}px;
+                           margin-bottom: {{deviceHeight/30}}px;margin-right: {{deviceWidth/30}}px;position: fixed">
+                    <img src="img/profile/profile_02_img_bottom.png"
+                         style="width:{{deviceWidth/6}}px;
+                             margin-left: {{deviceWidth/3.7}}px;margin-top:-{{deviceWidth/7}}px ">
+                    <img src="img/profile/btn_play_profile.png" ng-click="goMainContentPage(1)"
+                         style="width: {{deviceWidth/6}}px;margin-left: {{deviceWidth/3.7}}px;margin-top:-{{deviceHeight/30}}px">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--아이가 한명일 때-->
+          <div layout="row" ng-if="entireChildNum==1">
+            <div flex>
+              <div class="profileDiv" style="height:{{deviceHeight}}px;">
+                <img src="img/profile/profile_bg_label.png" style="height:{{(deviceHeight/8.5)}}px;margin-left: 32%">
+                <div class="outsideBox">
+                  <div class="insideBox" style="padding-top: {{(deviceHeight/30)}}px">
+                    <div class="registeredprofileImage" style="width:{{deviceWidth/5}}px;height:{{deviceWidth/5}}px;
+                      background-image: url('{{childInfoList[0].childPhoto}}');">
+                      <img src="img/profile/profile_02_img_top.png" style="width:{{deviceWidth/2.2}}px;margin-left: -62%">
+                      <img src="img/profile/profile_02_over.png" id="flowerAndBird" style="width:{{deviceWidth/5}}px;margin-top:-{{(deviceWidth/6)}}px">
+                    </div>
+                    <div class="boxBottom" style="padding-top:{{deviceHeight/30}}px; ">
+                      <div class="childInfoDiv" style="height:{{deviceHeight/3}}px;margin-top:{{deviceHeight/25}}px;float: left;width:40%;">
+                        <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;
+                          margin-top:{{deviceHeight/32}}px;">
+                          이름 : {{childInfoList[0].childName}}
+                        </div>
+                        <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;">
+                          생일 : {{childInfoList[0].childBirth}}
+                        </div>
+                        <div class="childInfoText" style="padding-left:{{deviceHeight/30}}px;padding-top: {{deviceHeight/30}}px;">
+                          성별 : {{childInfoList[0].childGender}}
+                        </div>
+                      </div>
+
+                      <div class="childInfoDiv"
+                           style="height:{{deviceHeight/4}}px;float: right;width:40%;
+                           margin-top:{{deviceHeight/4}}px;
+                           margin-bottom: {{deviceHeight/30}}px;margin-right: {{deviceWidth/30}}px;position: fixed">
+                        <img src="img/profile/profile_02_img_bottom.png"
+                             style="width:{{deviceWidth/6}}px;
+                             margin-left: {{deviceWidth/3.7}}px;margin-top:-{{deviceWidth/7}}px ">
+                        <img src="img/profile/btn_play_profile.png" ng-click="goMainContentPage(0)"
+                        style="width: {{deviceWidth/6}}px;margin-left: {{deviceWidth/3.7}}px;margin-top:-{{deviceHeight/30}}px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div flex>
+              <div class="profileDiv" style="height:{{deviceHeight}}px;">
+                <img src="img/profile/profile_bg_label.png" style="height:{{(deviceHeight/8.5)}}px;margin-left: 32%">
+                <div class="outsideBox">
+                  <div class="insideBox" style="padding-top: {{(deviceHeight/30)}}px">
+                    <div class="unRegisteredprofileImage" style="width:{{deviceWidth/5}}px;height:{{deviceWidth/5}}px">
+                      <img src="img/profile/profile_02_img_top.png" style="width:{{deviceWidth/2.2}}px;margin-left: -62%">
+                      <img src="img/profile/icon_photo_upload.png"
+                           style="width: {{deviceWidth/20}}px;height:{{deviceWidth/20}}px;
+                           margin-top:-{{deviceWidth/3.2}}px;margin-left:{{deviceWidth/13}}px"
+                           ng-click="goChildInfoForm(1)">
+                    </div>
+                    <div class="boxBottom" style="padding-top:{{deviceHeight/30}}px; ">
+                      <img src="img/profile/profile_01_img_bottom.png" style="width:{{deviceWidth/2.5}}px;
+                      margin-left: {{deviceWidth/35}}px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+      <!-- 아이가 한명도 없을 때 -->
+      <div layout="row" ng-if="entireChildNum==0">
+        <div flex>
+          <div class="profileDiv" style="height:{{deviceHeight}}px;">
+            <img src="img/profile/profile_bg_label.png" style="height:{{(deviceHeight/8.5)}}px;margin-left: 32%">
+            <div class="outsideBox">
+              <div class="insideBox" style="padding-top: {{(deviceHeight/30)}}px">
+                <div class="unRegisteredprofileImage" style="width:{{deviceWidth/5}}px;height:{{deviceWidth/5}}px">
+                  <img src="img/profile/profile_02_img_top.png" style="width:{{deviceWidth/2.2}}px;margin-left: -62%">
+                  <img src="img/profile/icon_photo_upload.png"
+                       style="width: {{deviceWidth/20}}px;height:{{deviceWidth/20}}px;
+                           margin-top:-{{deviceWidth/3.2}}px;margin-left:{{deviceWidth/13}}px"
+                              ng-click="goChildInfoForm(0)">
+                </div>
+                <div class="boxBottom" style="padding-top:{{deviceHeight/30}}px; ">
+                  <img src="img/profile/profile_01_img_bottom.png" style="width:{{deviceWidth/2.5}}px;
+                      margin-left: {{deviceWidth/35}}px">
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        <div flex>
+          <div class="profileDiv" style="height:{{deviceHeight}}px;">
+            <img src="img/profile/profile_bg_label.png" style="height:{{(deviceHeight/8.5)}}px;margin-left: 32%">
+            <div class="outsideBox">
+              <div class="insideBox" style="padding-top: {{(deviceHeight/30)}}px">
+                <div class="unRegisteredprofileImage" style="width:{{deviceWidth/5}}px;height:{{deviceWidth/5}}px">
+                  <img src="img/profile/profile_02_img_top.png" style="width:{{deviceWidth/2.2}}px;margin-left: -62%">
+                  <img src="img/profile/icon_photo_upload.png"
+                       style="width: {{deviceWidth/20}}px;height:{{deviceWidth/20}}px;
+                           margin-top:-{{deviceWidth/3.2}}px;margin-left:{{deviceWidth/13}}px"
+                            ng-click="goChildInfoForm(1)">
+                </div>
+                <div class="boxBottom" style="padding-top:{{deviceHeight/30}}px; ">
+                  <img src="img/profile/profile_01_img_bottom.png" style="width:{{deviceWidth/2.5}}px;
+                      margin-left: {{deviceWidth/35}}px">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+    </ion-pane>
+</ion-content>
+
+<!--
+
+<ion-pane style="background-color: darkslategray;">
+
+  <div ng-controller="selectChildInfoCtrl" id="contentHeight" style="height: 100%;width: 100%" ng-init="getChildInfo();">
+    &lt;!&ndash;두명 등록 되어 있을때 &ndash;&gt;
+    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="getChildNum(2)">
+      <div flex="50" layout="column">
+        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
+          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
+            &lt;!&ndash;<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">&ndash;&gt;
+            <h1 style="font-family: Roboto;font-weight: 500">Level. 1{{childInfoList[0].childLevel}}</h1>
+            <p>({{childInfoList[0].childExp}}/7800)</p>
+            <div class="avatarDiv" STYLE="text-align: center;">
+              <img class="avatar" ng-src="{{childInfoList[0].childPhoto}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/6}}px;margin: 0 auto">
+
+            </div>
+          </div>
+          <div style="height: 50%;">
+            <md-card-title>
+
+              <md-card-title-text layout-align="none center">
+                <span class="md-headline">{{childInfoList[0].childName}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-raised md-warn" style="width:80%" ng-click="goMainContentPage(0)"><strong>Play!</strong></md-button>
+
+            </md-card-actions>
+          </div>
+        </md-card>
+
+      </div>
+
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
+          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
+            &lt;!&ndash;<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">&ndash;&gt;
+            <h1 style="font-family: Roboto;font-weight: 500">Level. {{getChildLevel(childInfoList[1].childExp)}}</h1>
+            <p>({{childInfoList[1].childExp}}/7800)</p>
+            <div class="avatarDiv" STYLE="text-align: center;">
+              <img class="avatar" ng-src="{{childInfoList[1].childPhoto}}" style="height: height:{{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
+            </div>
+          </div>
+          <div style="height: 50%;">
+            <md-card-title>
+
+              <md-card-title-text layout-align="none center">
+                <span class="md-headline">{{childInfoList[1].childName}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-raised md-warn" style="width:80%" ng-click="goMainContentPage(1)"><strong>Play!</strong></md-button>
+            </md-card-actions>
+          </div>
+        </md-card>
+      </div>
+    </md-content>
+
+    &lt;!&ndash;한명 등록 되어 있을때 &ndash;&gt;
+    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px" ng-show="getChildNum(1)">
+      <div flex="50" layout="column">
+        <md-card style="background-color: bisque;height:{{deviceHeight-10}}px">
+          <div style="background-image: url('{{imagePath}}');background-size: cover;padding: 10px;height:50%;text-align: center" >
+            &lt;!&ndash;<img ng-src="{{imagePath}}" class=md-card-image" alt="Washed Out">&ndash;&gt;
+            <h1 style="font-family: Roboto;font-weight: 500">Level. {{getChildLevel(childInfoList[0].childExp)}}</h1>
+            <p>({{childInfoList[0].childExp}}/7800)</p>
+            <div class="avatarDiv" STYLE="text-align: center;height: {{deviceHeight/3}}px;">
+              <img class="avatar" ng-src="{{childInfoList[0].childPhoto}}" style="height: {{deviceHeight/3}}px; width:{{deviceHeight/3}}px; border-radius: {{deviceHeight/3}}px;margin: 0 auto">
+            </div>
+          </div>
+          <div style="height: 50%;">
+            <md-card-title>
+
+              <md-card-title-text layout-align="none center">
+                <span class="md-headline">{{childInfoList[0].childName}}</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+              <md-button class="md-raised md-warn" style="width:80%" ng-click="goMainContentPage(0)"><strong style="font-family: Roboto;font-weight: 500">Play!</strong></md-button>
+            </md-card-actions>
+          </div>
+        </md-card>
+
+      </div>
+
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
+          &lt;!&ndash;<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">&ndash;&gt;
+
+          <md-card-content>
+            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="goChildInfoForm(1)">
+              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
+            </md-button>
+          </md-card-content>
+
+        </md-card>
+      </div>
+    </md-content>
+
+
+    &lt;!&ndash;아무도 등록안되어있을때 &ndash;&gt;
+    <md-content class="md-padding"  layout="row" style="background-color: darkslategray; height:{{deviceHeight+20}}px;" ng-show="getChildNum(0)">
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
+          &lt;!&ndash;<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">&ndash;&gt;
+
+          <md-card-content>
+            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="goChildInfoForm(0)">
+              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
+            </md-button>
+          </md-card-content>
+
+        </md-card>
+      </div>
+      <div flex="50" layout="column">
+
+        <md-card style="background-color: bisque; height:{{deviceHeight-10}}px" layout-align="center center">
+          &lt;!&ndash;<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">&ndash;&gt;
+
+          <md-card-content>
+            <md-button class="md-fab" aria-label="plusChildInfo" ng-click="goChildInfoForm(0)">
+              <md-icon md-svg-src="img/childPlus.svg"></md-icon>
+            </md-button>
+          </md-card-content>
+
+        </md-card>
+      </div>
+    </md-content>
+
+  </div>
+</ion-pane>
+-->
