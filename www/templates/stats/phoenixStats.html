@@ -1,5 +1,7 @@
 <style>
-
+  .topController{
+    margin: 2.0vw
+  }
   .roadStyleBg{
     background-color: #828593;
     overflow: hidden;
@@ -55,7 +57,7 @@
       font-weight: 600;
       color: white;
       width: 20%;
-      min-width : 120px;
+      min-width : 100px;
       padding-left: 5px;
     }
     .pencil{
@@ -68,15 +70,15 @@
     .studyProgress{
       float: right;
       margin-left: -10px;
-      width: 85%;
+      width: 80%;
     }
     .progressTitle{
       float: left;
       font-size: 20px;
       font-weight: 600;
       color: white;
-      width: 15%;
-      min-width : 120px;
+      width: 20%;
+      min-width : 100px;
       line-height: 35px;
       padding-left: 10px;
     }
@@ -149,7 +151,7 @@
     .pencil{
       margin-left:40%;
       width:60%;
-      min-height:480px
+      min-height:460px
     }
   }
 
@@ -199,14 +201,24 @@
   }
 
   .railLoad{
-    width:75%
+    width:70%;
+    margin-right:5%;
+    margin-top:8vw;
   }
   .railSide{
     width:25%;
+    margin-top:8vw;
   }
   .pencil{
     background-size: cover;
     background-repeat: no-repeat;
+  }
+  .heightBlank{
+    height: 0.05vw;
+    width: 100%;
+  }
+  .textCircles{
+    float: left;
   }
 </style>
 <div ng-controller="statisticsPageCtrl" class="roadStyleBg" style="color: black">
@@ -229,8 +241,9 @@
         </div>
       </div>
     </div>
+
     <!--단어 학습율-->
-    <div id="studyProgressDiv" class="studyProgressDiv" style="margin-top: {{deviceHeight/40}}px;">
+    <div id="studyProgressDiv" class="studyProgressDiv" style="padding-top: 0.002vw;">
       <div class="left progressTitle">
         단어학습률
       </div>
@@ -243,11 +256,33 @@
     </div>
 
   </div>
-  <div class="detailImages">
+  <div class="detailImages" style="margin: 2.0vw">
     <div class="left railLoad">
-      <div class="rail" style="">
 
+      <div class="rail"
+           style="background-image: url('img/staticsPage/map01.png');background-size: contain;background-repeat: no-repeat;width:70vw;height: 60vw">
+
+        <div ng-repeat="phoenix in phoenixList">
+
+          <div class="textCircles textCircle0" ng-if="$index%3==0"
+            style="background-image: url('img/staticsPage/{{phoenix.rate}}_{{phoenix.kind}}.png');margin-top:-5vw;
+            width:20vw;height:20vw;background-size: contain;background-repeat: no-repeat;padding-left: 8.5vw;padding-top: 8.5vw">
+            <span style="font-size: 50px;font-weight: 600;color: white">{{phoenix.text}}</span>
+          </div>
+          <div class="textCircles textCircle1" ng-if="$index%3==1"
+               style="background-image: url('img/staticsPage/{{phoenix.rate}}_{{phoenix.kind}}.png');margin-top:-5vw;
+            width:20vw;height:20vw;background-size: contain;background-repeat: no-repeat;padding-left: 8.5vw;padding-top: 8.5vw">
+            <span style="font-size: 50px;font-weight: 600;color: white">{{phoenix.text}}</span>
+          </div>
+          <div class="textCircles textCircle2" ng-if="$index%3==2"
+               style="background-image: url('img/staticsPage/{{phoenix.rate}}_{{phoenix.kind}}.png');margin-top:-5vw;
+            width:20vw;height:20vw;background-size: contain;background-repeat: no-repeat;padding-left: 8.5vw;padding-top: 8.5vw">
+            <span style="font-size: 50px;font-weight: 600;color: white">{{phoenix.text}}</span>
+          </div>
+        </div>
       </div>
+
+
     </div>
     <div class="right railSide">
       <div class="pencil" ng-repeat="pencil in pencils" style="background-image: url('{{pencil}}');margin-bottom: 30px">

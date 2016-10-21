@@ -96,77 +96,77 @@ angular.module('hangeulbotApp').controller('statisticsPageCtrl', function ($scop
     "phoenixList" : [
       {
         "text" : "ㄱ",
-        "kind" : "초성",
+        "kind" : "cho",
         "rate" : "a"
       },
       {
         "text" : "ㄴ",
-        "kind" : "초성",
+        "kind" : "cho",
         "rate" : "a"
       },
       {
         "text" : "ㄷ",
-        "kind" : "초성",
+        "kind" : "cho",
         "rate" : "b"
       },
       {
         "text" : "ㄹ",
-        "kind" : "초성",
+        "kind" : "cho",
         "rate" : "a"
       },
       {
         "text" : "ㅁ",
-        "kind" : "초성",
+        "kind" : "cho",
         "rate" : "b"
       },
       {
         "text" : "ㄱ",
-        "kind" : "종성",
+        "kind" : "jong",
         "rate" : "a"
       },
       {
         "text" : "ㄴ",
-        "kind" : "종성",
+        "kind" : "jong",
         "rate" : "a"
       },
       {
         "text" : "ㄷ",
-        "kind" : "종성",
+        "kind" : "jong",
         "rate" : "b"
       },
       {
         "text" : "ㄹ",
-        "kind" : "종성",
+        "kind" : "jong",
         "rate" : "a"
       },
       {
         "text" : "ㅁ",
-        "kind" : "종성",
+        "kind" : "jong",
         "rate" : "d"
       },
       {
         "text" : "ㅏ",
-        "kind" : "종성",
+        "kind" : "jung",
         "rate" : "a"
       },
       {
         "text" : "ㅑ",
-        "kind" : "종성",
+        "kind" : "jung",
         "rate" : "a"
       },
       {
         "text" : "ㅓ",
-        "kind" : "종성",
+        "kind" : "jung",
         "rate" : "b"
       },
       {
         "text" : "ㅕ",
-        "kind" : "종성",
+        "kind" : "jung",
         "rate" : "a"
       },
       {
         "text" : "ㅜ",
-        "kind" : "종성",
+        "kind" : "jung",
         "rate" : "d"
       }
 
