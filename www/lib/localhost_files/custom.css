@@ -1,0 +1,69 @@
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/*@import url('https://cdn.rawgit.com/singihae/Webfonts/master/style.css');*/
+body *{
+  font-family: 'BM JUA','배달의민족 주아','BM HANNA','배달의민족 한나','Nanum Gothic', serif;
+}
+.introLogo{
+  width:30%;
+  margin-left:35%;
+  margin-top:10%;
+}
+.connectDiv{
+  text-align: center;
+  margin-top:3%;
+
+}
+
+.connectBtnDiv{
+  width : 80%;
+  margin-top:3%;
+  margin-left:10%
+}
+.loading-container .loading{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top : 10%
+}
+
+.progress-bar {
+  background-color: aliceblue;
+  height: 15px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px #fff inset, 0 1px 0 #444;
+  text-align: left;
+  margin-top : 10%;
+}
+
+.insertInfoWrapper{
+  padding:20px;
+}
+
+.progress-bar span {
+  display: inline-block;
+  height: 100%;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+  transition: width .4s ease-in-out;
+}
+.stripes span {
+  background-size: 30px 30px;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+  transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+  transparent 75%, transparent);
+  animation: animate-stripes 3s linear infinite;
+}
+.blue span {
+  background-color: #34c2e3;
+}
+@keyframes animate-stripes {
+  0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+}
+
+
+.joinError{
+  color : red;
+  font-weight: bold;
+}
