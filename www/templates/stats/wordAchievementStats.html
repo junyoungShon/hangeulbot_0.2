@@ -1,0 +1,385 @@
+<style>
+  .topController{
+    margin: 2.0vw
+  }
+  .roadStyleBg{
+    background-color: #828593;
+    overflow: hidden;
+  }
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+  .sortBtn{
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width : 100%;
+  }
+  .sortBtnList{
+    width:100%;
+  }
+  .studyProgressDiv{
+    width : 100%;
+
+  }
+  /*아이폰 5이하*/
+  @media screen and (max-width: 600px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 75%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 25%;
+      min-width : 120px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:150px
+    }
+    .textCircles{
+      padding-top: 7.6vw;
+      float: left;
+    }
+    .circleText{
+      font-size: 35px;font-weight: 600;color: white
+    }
+    .railLoad{
+      width:50%;
+      margin-top:8vw;
+      margin-right:5vw;
+    }
+  }
+  /*갤럭시 note*/
+  @media screen and (min-width: 601px) and (max-width: 666px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 80%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 20%;
+      min-width : 100px;
+      padding-left: 5px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:170px
+    }
+    .textCircles{
+      padding-top: 7.6vw;
+      float: left;
+    }
+    .circleText{
+      font-size: 40px;font-weight: 600;color: white
+    }
+    .railLoad{
+      width:50%;
+      margin-top:8vw;
+      margin-right:5vw;
+    }
+  }
+  /*아이폰 6, 6+*/
+  @media screen and (min-width: 667px) and (max-width:766px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 80%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 20%;
+      min-width : 100px;
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:190px
+    }
+    .railLoad{
+      width:50%;
+      margin-top:8vw;
+      margin-left:-15vw;
+    }
+    .textCircles{
+      padding-top: 7.6vw;
+      float: left;
+    }
+
+    .circleText{
+      font-size: 40px;font-weight: 600;color: white
+    }
+  }
+  /*7,8인치 태블릿+*/
+  @media screen and (min-width: 767px) and (max-width: 960px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 85%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 15%;
+      min-width : 120px;
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:250px
+    }
+    .railLoad{
+      width:50%;
+      margin-top:8vw;
+      margin-left:-13vw;
+    }
+    .textCircles{
+      padding-top: 7.6vw;
+      float: left;
+    }
+    .circleText{
+      font-size: 50px;font-weight: 600;color: white
+    }
+  }
+  /*아이패드 태블릿+*/
+  @media screen and (min-width: 961px) and (max-width: 1024px) {
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 85%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 15%;
+      min-width : 120px;
+      line-height: 35px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:290px
+    }
+    .textCircles{
+      padding-top: 6.5vw
+    }
+    .textCircles{
+      padding-top: 7.8vw;
+      float: left;
+    }
+    .circleText{
+      font-size: 50px;font-weight: 600;color: white
+    }
+    .railLoad{
+      width:50%;
+      margin-top:8vw;
+      margin-left:3vw;
+    }
+  }
+  /*10인치 태블릿 (갤탭)+*/
+  @media screen and (min-width: 1025px){
+    .studyProgress{
+      float: right;
+      margin-left: -10px;
+      width: 90%;
+    }
+    .progressTitle{
+      float: left;
+      font-size: 20px;
+      font-weight: 600;
+      color: white;
+      width: 10%;
+      min-width : 120px;
+      line-height: 40px;
+      padding-left: 10px;
+    }
+    .pencil{
+      margin-left:40%;
+      width:60%;
+      min-height:370px
+    }
+
+
+    .railLoad{
+      width:50%;
+      margin-top:8vw;
+      margin-left:5vw;
+    }
+    .textCircles{
+      padding-top: 10vw;
+      float: left;
+    }
+    .circleText{
+      font-size: 40px;font-weight: 600;color: white
+    }
+  }
+
+
+  .studyBest {
+    float: left;
+    background: #3ba8a8; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#3ba8a8, #5fc1c7); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#3ba8a8, #5fc1c7); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#3ba8a8, #5fc1c7); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#3ba8a8, #5fc1c7); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .studyGood {
+    float:left;
+    background: #f99c15; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#f99c15, #ffb53e); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#f99c15, #ffb53e); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#f99c15, #ffb53e); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#f99c15, #ffb53e); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+  }
+  .studyWorst {
+    float: right;
+    background: #cc3a6e; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#cc3a6e, #f74d82); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#cc3a6e, #f74d82); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#cc3a6e, #f74d82); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#cc3a6e, #f74d82); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+  }
+
+  .studyNotRecorded {
+    float: right;
+    background: #4f396b; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#4f396b, #785b95); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#4f396b, #785b95); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#4f396b, #785b95); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#4f396b, #785b95); /* Standard syntax */
+    box-shadow: inset 5px 5px 7px 0px rgba(0,0,0,0.5);
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .studyProgress{
+    box-shadow: inset 30px 30px 10px 0px rgba(0,0,0,0.5);
+    border-radius: 5px;
+  }
+
+  .railSide{
+    width:20%;
+    margin-top:3vw;
+  }
+  .pencil{
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .heightBlank{
+    height: 0.05vw;
+    width: 100%;
+  }
+
+
+</style>
+<div ng-controller="statisticsPageCtrl" class="roadStyleBg" style="color: black">
+  <div class="topController">
+    <!--소트 버튼 학습율-->
+    <div class="sortingBtnDiv" style="text-align:center">
+      <div class="row" style="margin-left:5px;">
+
+        <div class="sortBtnList" ng-repeat="wordAchievementBtn in wordAchievementBtnList" ng-click="wordAchievementSorting($index)"
+             style="margin-right: {{deviceWidth/135}}px;">
+
+          <div class="sortBtn" style="background-image: url('{{wordAchievementBtn.AUrl}}');
+            height:{{deviceHeight/6.34}}px;" ng-show="wordAchievementBtn.isActivated">
+
+          </div>
+          <div class="sortBtn" style="background-image: url('{{wordAchievementBtn.DAUrl}}');
+            height:{{deviceHeight/6.34}}px;" ng-hide="wordAchievementBtn.isActivated">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--단어 학습율-->
+    <div id="studyProgressDiv" class="studyProgressDiv" style="padding-top: 0.002vw;">
+      <div class="left progressTitle">
+        단어학습률
+      </div>
+      <div class="studyProgress">
+        <div class="studyBest" style="width:{{wordAcheivementBestRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+        <div class="studyGood" style="width:{{wordAcheivementWorstRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+        <div class="studyWorst" style="width:{{wordAcheivementNotRecordedRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+        <div class="studyNotRecorded" style="width:{{wordAcheivementGoodRate}}%;height: {{deviceHeight/16.66}}px;min-height: 30px"><span></span></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="detailImages" style="margin: 2.0vw">
+    <div class="left railLoad">
+
+      <any ng-repeat="wordAchievementMap in wordAchievementMapList" >
+        <div class="rail" ng-if="$index==1"
+             style="background-image: url('img/staticsPage/map01.png');background-size: contain;background-repeat: no-repeat;width:70vw;height: 60vw;float:left;
+           margin-top:-0vw">
+        </div>
+        <div class="rail" ng-if="$index%6==1&&$index!=1"
+             style="background-image: url('img/staticsPage/map01.png');background-size: contain;background-repeat: no-repeat;width:70vw;height: 60vw;float:left;
+           margin-top:-12vw">
+        </div>
+
+      </any>
+
+      <any ng-repeat="wordAchievementMap in wordAchievementMapList | filter: orderByAchievementGrade | orderBy:orderByWord" >
+
+        <div class="textCircles textCircle0" ng-if="$index%3==0"
+             style="background-image: url('img/staticsPage/{{wordAchievementMap.grade}}.png');margin-top:-{{(66+(acheivementRoadLength-1)*48)-(Math.floor($index/3))*24}}vw;margin-left:-3vw;
+            width:20vw;height:20vw;background-size: contain;background-repeat: no-repeat;">
+          <span class="circleText">{{wordAchievementMap.word}}</span>
+        </div>
+
+        <!--<div style="height: 20vw;width:5vw;float:left;margin-top:-113vw;" ng-if="$index%3==0"></div>-->
+
+        <div class="textCircles textCircle1" ng-if="$index%3==1"
+             style="background-image: url('img/staticsPage/{{wordAchievementMap.grade}}.png');margin-top:-{{(66+(acheivementRoadLength-1)*48)-(Math.floor($index/3))*24}}vw;margin-left:24vw;
+            width:20vw;height:20vw;background-size: contain;background-repeat: no-repeat;">
+          <span class="circleText">{{wordAchievementMap.word}}</span>
+        </div>
+
+        <!--<div style="height: 20vw;width:5vw;float:left;margin-top:-113vw;" ng-if="$index%3==1"></div>-->
+
+        <div class="textCircles textCircle2" ng-if="$index%3==2"
+             style="background-image: url('img/staticsPage/{{wordAchievementMap.grade}}.png');margin-top:-{{(66+(acheivementRoadLength-1)*48)-(Math.floor($index/3))*24}}vw;margin-left:50vw;
+            width:20vw;height:20vw;background-size: contain;background-repeat: no-repeat;">
+          <span class="circleText">{{wordAchievementMap.word}}</span>
+        </div>
+      </any>
+    </div>
+    <div class="right railSide">
+      <div class="pencil" ng-repeat="pencil in pencils" style="background-image: url('{{pencil}}');margin-bottom: 30px">
+
+      </div>
+    </div>
+  </div>
+</div>

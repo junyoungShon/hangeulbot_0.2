@@ -35,37 +35,35 @@ angular.module('hangeulbotApp')
     SoundService.prototype = {
 
       localPreloadSimple : function(id,filePath,completeCallback){
-        /*$cordovaNativeAudio.preloadSimple(id,filePath,completeCallback,function(msg){console.log('preloadSimple : ',msg)},function(msg){
-            console.log('preloadSimple: '+msg)
-        }).then(function(){
-          completeCallback();
-        })*/
+        $cordovaNativeAudio.preloadSimple(id,filePath).then(completeCallback,function(e){
+          console.log("error : ",e);
+        });
       },
 
       localPreloadComplex : function(id,filePath,volume,voices,delay,completeCallback){
-       /* $cordovaNativeAudio.preloadComplex(id,filePath,volume,voices,delay).then(completeCallback,function(msg){
+       $cordovaNativeAudio.preloadComplex(id,filePath,volume,voices,delay).then(completeCallback,function(msg){
           console.log('preloadSimple: '+msg)
         })
-        SoundService.pushSoundList({id:id,status:'load',source:'native'})*/
+        SoundService.pushSoundList({id:id,status:'load',source:'native'})
       },
 
       localMusicPlay : function(id,completeCallback){
-       /* $cordovaNativeAudio.play(id,completeCallback)
-          .then(function(msg){console.log('Local play Success: ',msg)},function(msg){console.log('Local play fail: ',msg)});*/
+        $cordovaNativeAudio.play(id,completeCallback)
+          .then(function(msg){console.log('Local play Success: ',msg)},function(msg){console.log('Local play fail: ',msg)});
       },
 
       localMusicLoop : function(id){
-       /* console.log('배경음 루프 돌리기 시작합니다')
+        console.log('배경음 루프 돌리기 시작합니다')
         $cordovaNativeAudio.loop(id).then(function(msg){console.log('Local loop: '+msg)},function(msg){console.log('Local loop: '+msg)});
-        SoundService.changeStatus({id:id,status:'loop',source:'native'})*/
+        SoundService.changeStatus({id:id,status:'loop',source:'native'})
       },
       localMusicStop : function(id){
-        /*$cordovaNativeAudio.stop(id,function(msg){console.log('preloadSimple: '+msg)},function(msg){console.log('preloadSimple: '+msg)});
-        SoundService.changeStatus({id:id,status:'stop',source:'native'})*/
+        $cordovaNativeAudio.stop(id,function(msg){console.log('preloadSimple: '+msg)},function(msg){console.log('preloadSimple: '+msg)});
+        SoundService.changeStatus({id:id,status:'stop',source:'native'})
       },
       localMusicUnload : function(id){
-        /*$cordovaNativeAudio.unload(id,function(msg){console.log('preloadSimple: '+msg)},function(msg){console.log('preloadSimple: '+msg)});
-        SoundService.changeStatus({id:id,status:'unload',source:'native'})*/
+        $cordovaNativeAudio.unload(id,function(msg){console.log('preloadSimple: '+msg)},function(msg){console.log('preloadSimple: '+msg)});
+        SoundService.changeStatus({id:id,status:'unload',source:'native'})
       }
     }
     return SoundService;

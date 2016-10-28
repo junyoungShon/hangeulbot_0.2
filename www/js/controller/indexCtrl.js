@@ -17,10 +17,7 @@ angular.module('hangeulbotApp')
       /*setTimeout(function(){
         document.getElementById("custom-overlay").style.display = "none";
       }, 3000);*/
-      setInterval(function(){
-        screen.lockOrientation('landscape');
-        StatusBar.hide();
-      },3000);
+      
       $scope.devicePlatform = Device.prototype.getPlatform();
 
       console.log('디바이스의 플랫폼은?'+$scope.devicePlatform);
@@ -61,7 +58,7 @@ angular.module('hangeulbotApp')
     $scope.isEnabledBluetooth = function(){
       console.log('지금 현재 디바이스 블루투스 상태를 체크합니다.')
       //hangeulbotUtil.loadingModal(true,'해당기기가 블루투스 지원여부를 확인하고있어요~',10);
-      $scope.showLoadingPage('블루투스 지원여부 확인 중',false);
+      $scope.showLoadingPage('블루투스 지원여부 확인 중','isBLEEnabled',true);
       var promise = Device.prototype.isBluetoothEnabled();
       //블루투스 허용되었을때
       promise.then(function(result){
@@ -81,7 +78,7 @@ angular.module('hangeulbotApp')
         if($scope.devicePlatform=='android'){
           //안드로이드일 경우 바로 사용을 요청할 수 있다
           //hangeulbotUtil.loadingModal(false,'기기의 블루투스가 꺼져있습니다',10);
-          $scope.showLoadingPage('블루투스가 꺼져있어요!',false);
+          $scope.showLoadingPage('블루투스가 꺼져있어요!','isBLEEnabled',false);
 
           $scope.enableBluetooth();
         }else if($scope.devicePlatform=='ios'){
@@ -89,13 +86,14 @@ angular.module('hangeulbotApp')
           console.log('iOS 현재 블루투스 기능을 불허한 상태')
 
           //hangeulbotUtil.loadingModal(false,'기기의 블루투스가 꺼져있습니다',10);
-          $scope.showLoadingPage('블루투스가 꺼져 있어요!',false);
+          $scope.showLoadingPage('블루투스가 꺼져 있어요!','isBLEEnabled',false);
           hangeulbotUtil.alertPopup('oneBtn','기기의 블루투스 기능이 켜져 있지 않습니다',
             '<div class="alertPlainText">IOS 정책상 앱에서 블루투스를 켜드릴 수 없습니다.<br> 설정에서 블루투스를 ON 하시고 재탐색 버튼을 눌러주세요!</div>','확인',''
             ,function(){$scope.isOffline();$scope.userCondition = 'bluetoothDisabled';});
         }else{
           //웹브라우져일 경우 - 테스트일 때 !!
         }
+        $scope.showLoadingPage('블루투스 사용가능','isBLEEnabled',false);
       })
       console.log('블루투스 사용가능 여부 체크 완료')
     }
@@ -106,7 +104,7 @@ angular.module('hangeulbotApp')
       hangeulbotUtil.alertPopup('oneBtn','기기의 블루투스 기능이 켜져 있지 않습니다',
         '<div class="alertPlainText">블루투스 전원 요청이 오면 허용을 눌러주세요</div>','확인',''
         ,function(){
-          var promise = bluetoothService.enable();
+          var promise = Device.prototype.enable();
           promise.then(function(result){
             //허용한 경우 리스트를 찾아준다.
             $scope.isEnabledBluetooth();
@@ -128,7 +126,7 @@ angular.module('hangeulbotApp')
     $scope.discoverDevices = function(){
 
       //hangeulbotUtil.loadingModal(true,'한글봇을 찾고있어요',10);
-      $scope.showLoadingPage('한글봇을 찾고있어요~');
+      $scope.showLoadingPage('한글봇을 찾고있어요~','findDevice',true);
 
       //주변의 페어링 가능한 한글 봇 기기를 찾는다.
       var pairedDeviceSearchPromise = Device.prototype.discoverPairedDevices();
@@ -141,8 +139,8 @@ angular.module('hangeulbotApp')
             $scope.finishSearchDevice();
             //android 의 경우 언페얼드 디바이스를 더 검색한다
           }else if($scope.devicePlatform=='android'){
-            console.error('언페얼드 디바이스 검색 시작하나');
-            $scope.discoverUnPairedDevices();
+
+            $scope.finishSearchDevice();
             //$scope.guestMode();
           }
         }else if(devices.length==1){
@@ -162,7 +160,7 @@ angular.module('hangeulbotApp')
     //한글봇이 1대 발견되면 바로 연결
     //2대 이상이면 리스트 반환
     //0대 이면 한글봇을 못찾았다는 메시지 반환
-    $scope.discoverUnPairedDevices = function(){
+    /*$scope.discoverUnPairedDevices = function(){
       console.error('언페얼드 디바이스 검색 시작하나');
       //
       //hangeulbotUtil.loadingModal(true,'한글봇을 찾고있어요',10);
@@ -184,12 +182,12 @@ angular.module('hangeulbotApp')
       },function(err){
 
       })
-    }
+    }*/
 
     $scope.finishSearchDevice = function(){
 
       //hangeulbotUtil.loadingModal(false,'한글봇 기기를 수색완료!',10)
-      $scope.showLoadingPage('한글봇 기기수색 완료!',false);
+      $scope.showLoadingPage('한글봇 기기수색 완료!','findDevice',false);
       console.error('$scope.aroundHangeulbotDevices.length : '+$scope.aroundHangeulbotDevices.length);
       //에러 발생
       // 페어드된 적 있는 한글봇과 페어드된 적 없는 한글봇을 모두 수색하고 그 숫자에 따라 커넥트할 지 리스트를 보여줄 지 선택
@@ -239,28 +237,28 @@ angular.module('hangeulbotApp')
       var nStart = new Date().getTime();
       console.log(deviceId+"에 접속을 시도함 시작시간 : "+nStart);
 
-      $scope.showLoadingPage('한글봇과 블루투스 연결중~!');
+      $scope.showLoadingPage('한글봇과 블루투스 연결중~!','BLEConnecting',true);
 
       console.log(deviceId+"에 접속을 시도함");
-      var connectPromise =Device.prototype.connect($scope.aroundHangeulbotDevices[0]);
+      var connectPromise =Device.prototype.connect(deviceId);
       connectPromise.then(function(){
 
         //hangeulbotUtil.loadingModal(false,'한글봇에 접속 성공!')
-        $scope.showLoadingPage('한글봇과 블루투스 접속 성공~!',false);
+        $scope.showLoadingPage('한글봇과 블루투스 접속 성공~!','BLEConnecting',false);
 
         var nEnd = new Date().getTime();
         console.log(deviceId+"에 접속 성공 완료시간 : "+nEnd);
         console.log("총 소요시간" + (nEnd-nStart)+"ms");
         //블루투스 신호를 받기위해 대기
-        Device.prototype.subscribe();
+        Device.prototype.startNotification(deviceId);
         //5초마다 블루투스의 상태를 체크
-        Device.prototype.bluetoothChecker();
+        //Device.prototype.bluetoothChecker();
         //블루투스 주소를 활용해 회원 인증 시도
         $scope.connect(deviceId);
 
       },function(e){
         console.log('접솔실패',e);
-        $scope.showLoadingPage('한글봇과 블루투스 연결실패!',false);
+        $scope.showLoadingPage('한글봇과 블루투스 연결실패!','BLEConnecting',false);
         hangeulbotUtil.alertPopup('twoBtn','주변에 한글봇 기기가 없습니다.',
           '<div class="alertPlainText">주변에 한글봇 기기가 없거나 전원이 꺼져있어요.<br> 한글봇의 전원을 확인하시고, 재탐색버튼을 누르거나 한글봇이 없다면 구경하기 버튼으로 앱 내부를 구경하세요!</div>','재탐색','구경하기'
           ,function(){console.error('시발 왜 이게 실행되 오프라인');$scope.isOffline();},function(){console.error('시발 이게 실행되야지 게스트모드');$scope.guestMode()});
@@ -275,7 +273,7 @@ angular.module('hangeulbotApp')
     $scope.connect = function(deviceId){
         console.log('접속을 시도한다',deviceId)
         //hangeulbotUtil.loadingModal(true, '한글봇에 접속을 시도하고있어요!', 10)
-        $scope.showLoadingPage('한글봇에 접속중..');
+        $scope.showLoadingPage('한글봇에 접속중..','connecting',true);
 
         HangeulbotDevice.getDeviceInfoByDeviceAddress(deviceId).then(function(connectionInfo){
           console.log('한글봇의 정보가 왔다',connectionInfo);
@@ -284,7 +282,7 @@ angular.module('hangeulbotApp')
             HangeulbotDevice.setHangeulbotDevice(connectionInfo.hangeulbotDevice);
 
             //hangeulbotUtil.loadingModal(false,'한글봇에접속이 완료되었습니다!');
-            $scope.showLoadingPage('한글봇 접속완료!',false);
+            $scope.showLoadingPage('한글봇 접속완료!','connecting',false);
 
             //등록된 유저가 이미 있는지 확인
             //유저가 있을 때

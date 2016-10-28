@@ -167,14 +167,14 @@ angular.module('hangeulbotApp')
           soundName = (cho+1) + ((jung+1)*32);
         }
         //두자리 일때
-        if(soundName<100){
+        /*if(soundName<100){
           soundName = '00'+ String(soundName)+'.mp3'
         }else if(soundName<1000){
           soundName = '0'+String(soundName)+'.mp3'
         }else if(soundName>=1000){
           soundName = String(soundName)+'.mp3'
-        }
-
+        }*/
+        soundName = String(soundName)+'.mp3'
         chars.push(cCho[cho], cJung[jung]);
         if (cJong[jong] !== '') { chars.push(cJong[jong]); }
       }
@@ -185,7 +185,7 @@ angular.module('hangeulbotApp')
 
     var textAssembler = function(disassembledWord){
 
-      console.log('ㄴ나양낭러ㅣㅇㄹ')
+      console.log('ㄴ나양낭러ㅣㅇㄹ',disassembledWord)
 
       if((disassembledWord[0]=="!"&&disassembledWord[disassembledWord.length-1]=="@")){
         var result='';

@@ -1,6 +1,6 @@
 /**  * Created by jyson on 2016. 7. 25..  */
 angular.module('hangeulbotApp').controller('contentViewCtrl',
-  function ($scope, $state, API_ENDPOINT,$sce, $ionicHistory,$cordovaNativeAudio,$cordovaMedia,$ionicPlatform,$stateParams,hangeulbotUtil,SoundService,DataService,Device,HangeulbotChild,APIService) {
+  function ($scope, $state, API_ENDPOINT,$sce, $ionicHistory,$templateCache,$cordovaNativeAudio,$cordovaMedia,$ionicPlatform,$stateParams,hangeulbotUtil,SoundService,DataService,Device,HangeulbotChild,APIService) {
 
     $scope.wantToReplay = function(flag){
       $ionicHistory.clearCache();
@@ -13,19 +13,24 @@ angular.module('hangeulbotApp').controller('contentViewCtrl',
 
   //출제될 어휘리스트를 외부 자바스크립트로 전달해주는 함수
   $scope.getQuestionList = function(){
+
     console.log('getQuestionList',DataService.getWordList());
     return DataService.getWordList();
   }
 
-  $scope.finishShow =false;
+
   /*$scope.deviceHeight = document.getElementById('contentHeight').offsetHeight;
   $scope.deviceWidth = document.getElementById('contentDIV').offsetWidth;*/
   $scope.deviceHeight = Device.prototype.getDeviceHeight();
   $scope.deviceWidth = Device.prototype.getDeviceWidth();
   $scope.cotentProgress = 0;
   $scope.contentId = $stateParams.contentId;
+  //$scope.contentId = 'venezia2';
   $scope.contentStatusBarColor = '#e4e54a';
-  $scope.finishStar = "img/contentView/play_finish_img_star0.png";
+  $scope.finishShowed =false;
+  $scope.playWordSoundInterval='';
+  //$scope.finishStar = "img/contentView/play_finish_img_star0.png";
+
   //정답시 이벤트
     //정답 아이디 , 입력한 정답 , 정답 여부 , 끝낸 시간, 시작 시간 , 소요시간
   $scope.isConRight = function(wordId,insertedAnswer,isCorrect,guideShown,endDate,startDate,timeRequired,isTest){
@@ -82,7 +87,7 @@ angular.module('hangeulbotApp').controller('contentViewCtrl',
   }
   // 단어 읽어주는 메서드
   $scope.playWordSound = function(koreanWord){
-    console.log('넘어오는 한국말'+koreanWord)
+    console.error('넘어오는 한국말'+koreanWord)
 
      /*for(var i=0;i<koreanWord.length;i++){
 
@@ -147,6 +152,11 @@ angular.module('hangeulbotApp').controller('contentViewCtrl',
   }
   //콘텐츠 종료 시 이벤트
   $scope.finishContent = function(startDate,endDate,timeRequired,point,finished){
+    $scope.finalBg = "img/contentView/play_finish_bg.png";
+    $scope.retryBtn = "img/contentView/btn_finish_again.png"
+    $scope.goMainBtn = "img/contentView/btn_finish_main.png"
+    $scope.finishStar = "img/contentView/play_finish_img_star0.png";
+    clearInterval($scope.playWordSoundInterval);
     var logObject =
     {
       logType : 'userContentLog',
@@ -159,7 +169,7 @@ angular.module('hangeulbotApp').controller('contentViewCtrl',
       point:point
     }
     $scope.submitLog(logObject);
-    $scope.finishShow = true;
+    $scope.finishShowed = true;
     console.log('피니쉬드 제대로 조정되나'+$scope.finishShow+'점수 몇 점 오냐'+logObject.point);
     for(var i=0;i<(Math.floor(point/33));i++){
       var cnt=0;
@@ -182,36 +192,52 @@ angular.module('hangeulbotApp').controller('contentViewCtrl',
     }else{
       SoundService.prototype.localMusicPlay('f1');
     }
+  }
+  $scope.soundPlayOnce = function(soundName,soundUrl){
+    console.log("soundPlayOnce" + soundName + " " + soundUrl);
+    SoundService.prototype.localPreloadSimple(soundName,soundUrl,function(){
+      SoundService.prototype.localMusicPlay(soundName,function(){
+        SoundService.prototype.localMusicUnload(soundName);
 
+
+
+      })
+    })
   }
   $scope.exitGame = function () {
     $ionicHistory.clearCache();
     finishContent();
-    SoundService.prototype.localMusicStop('b2');
+    SoundService.prototype.localMusicStop('b'+String(bgNum));
     SoundService.prototype.localMusicPlay('b1');
 
   }
-
+    $scope.bgNum = 0;
     $scope.contentLoad= function(){
       $scope.isGameengine = false;
-
+      $templateCache.removeAll();
       //$ionicHistory.clearCache();
-      //hangeulbotUtil.loadScript(API_ENDPOINT.url + '/static/contentsResources/'+$scope.contentId+'/'+$scope.contentId+'.js', 'text/javascript', 'utf-8');
-      hangeulbotUtil.loadScript(API_ENDPOINT.url + '/static/contentsResources/'+'remindingWord1'+'/'+'remindingWord1'+'.js', 'text/javascript', 'utf-8');
+      hangeulbotUtil.loadScript(API_ENDPOINT.url + '/static/contentsResources/'+$scope.contentId+'/'+$scope.contentId+'.js', 'text/javascript', 'utf-8');
+      $scope.includeUrl =  $sce.trustAsResourceUrl(API_ENDPOINT.url + '/static/contentsResources/'+$scope.contentId+'/'+$scope.contentId+'.html');
+      //hangeulbotUtil.loadScript(API_ENDPOINT.url + '/static/contentsResources/'+'remindingWord1'+'/'+'remindingWord1'+'.js', 'text/javascript', 'utf-8');
       //hangeulbotUtil.loadScript(API_ENDPOINT.url + '/static/contentsResources/'+'defaultWordCard1'+'/'+'defaultWordCard1'+'.js', 'text/javascript', 'utf-8');
       console.log('backgroudImage'+$scope.backgroudImage)
-      $scope.includeUrl =  $sce.trustAsResourceUrl(API_ENDPOINT.url + '/static/contentsResources/'+'remindingWord1'+'/'+'remindingWord1'+'.html');
-      $scope.changeStarImage = function(i){
-        $scope.$evalAsync(function(){
-          $scope.finishStar = "img/contentView/play_finish_img_star"+i+".png";
-          console.log('이야 바뀐다.'+$scope.finishStar)
-        })
-      }
-      //SoundService.prototype.localMusicStop('b1');
+      //$scope.includeUrl =  $sce.trustAsResourceUrl(API_ENDPOINT.url + '/static/contentsResources/'+'remindingWord1'+'/'+'remindingWord1'+'.html');
+      //$scope.includeUrl =  $sce.trustAsResourceUrl(API_ENDPOINT.url + '/static/contentsResources/'+'defaultWordCard1'+'/'+'defaultWordCard1'+'.html');
+      SoundService.prototype.localMusicStop('b1');
     };
 
     $scope.playBg = function(){
-      SoundService.prototype.localMusicLoop('b2');
+      var bgNum = Math.floor((Math.random() * (3)) + 1 );
+      console.log(bgNum);
+      SoundService.prototype.localMusicLoop('b'+String(bgNum));
+    }
+
+    $scope.changeStarImage = function(i){
+
+      $scope.$evalAsync(function(){
+        $scope.finishStar = "img/contentView/play_finish_img_star"+i+".png";
+        console.log('이야 바뀐다.'+$scope.finishStar)
+      })
     }
 
 

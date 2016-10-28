@@ -27,17 +27,18 @@ angular.module('hangeulbotApp')
 
   $ionicPlatform.ready(function(){
     //$cordovaNativeAudio.preloadSimple('touchMusic','effect/touchEffect.mp3');
+
   })
 
   $scope.readyMusic = function(){
     console.log('레디뮤직은 하냐');
     //터치음 삽입
-    SoundService.prototype.localPreloadComplex('touchMusic','effect/touchEffect.mp3',1,1,0);
+    SoundService.prototype.localPreloadComplex('touchMusic','effect/click.mp3',1,1,0);
     //배경음 삽입
     for(var i=1;i<4;i++){
       var loadingFile = 'effect/bgm/b-'+i+'.mp3';
       var loadingFileId = 'b'+i
-      SoundService.prototype.localPreloadComplex(loadingFileId,loadingFile,0.2,1,0);
+      SoundService.prototype.localPreloadComplex(loadingFileId,loadingFile,0.1,1,0);
     }
     //정답 피드백 삽입
     for(var i=1;i<7;i++){
@@ -66,26 +67,28 @@ angular.module('hangeulbotApp')
   $scope.loadingTextWidth = document.getElementById("custom-overlay-text").offsetWidth;
   $scope.loadingTrue = false;
   $scope.loadingMessage = '';
+  $scope.hideLoadingPageTimeout='';
   //로딩 페이지 출력
-  var hideSetTime;
-  $scope.showLoadingPage = function(loadingMessage,flag){
-    $scope.loadingMessage = loadingMessage;
-
-    console.log('loadingMessage = '+loadingMessage +'flag ='+flag+'hideSetTime',hideSetTime);
-    if(flag==undefined)flag=true;
-    if(hideSetTime!=undefined)hideSetTime=undefined;
-    $scope.$evalAsync(function(){
+  $scope.showLoadingPage = function(loadingMessage,msgId,flag){
+    //$scope.loadingMessage = loadingMessage;
+    console.error('로딩메시지 : '+loadingMessage+ ' msgId : '+msgId,' flag : '+flag)
+    if(flag){
+      clearTimeout($scope.hideLoadingPageTimeout);
+      $scope.loadingMessage = loadingMessage;
+      $scope.msgId = msgId;
       $scope.loadingTrue =true;
-      if(!flag){
-        hideSetTime = setTimeout(function(){
-          console.log('1초뒤 로딩 페이지 사라짐');
-          $scope.hideLoadingPage();
-        },200);
-      }else{
-        console.log('이건 로딩페이지 안사라진다.')
-      }
-    })
 
+    }else{
+
+      // 0 ~ 9까지 랜덤 숫자 구하기
+      var randomHideTime = (Math.random() * 1500)+1000;
+
+      if($scope.msgId==msgId){
+        $scope.hideLoadingPageTimeout = setTimeout(function(){
+          $scope.hideLoadingPage();
+        },randomHideTime)
+      }
+    }
   }
   //로딩 페이지 사라짐
   $scope.hideLoadingPage = function(){
@@ -96,7 +99,7 @@ angular.module('hangeulbotApp')
 
   //인터셉터로서의 역할을 담당한다. 비로그인 상태에서 다른 url로 접근할 경우 무조건 login 페이지로 이동시킴
   $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
-    /*if (!AuthService.isAuthenticated()) {
+    if (!AuthService.isAuthenticated()) {
      console.log(next.name);
      if (next.name !== 'intro' && next.name !== 'insertInfo') {
          event.preventDefault();
@@ -105,8 +108,9 @@ angular.module('hangeulbotApp')
 
      }
     }
+    $scope.showLoadingPage('페이지 이동중 입니다.','pageLocate',true);
     console.log('state 이동을 감지')
-    $scope.showLoadingPage('페이지 이동중 입니다.',false);*/
+    $scope.showLoadingPage('페이지 이동중 입니다.','pageLocate',false);
   });
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     $rootScope.$broadcast("currenStateUpated",{

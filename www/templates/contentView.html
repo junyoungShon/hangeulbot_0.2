@@ -1,4 +1,4 @@
-<ion-pane ng-controller="contentViewCtrl" id="contentHeight" ng-init="contentLoad()" cache-view="false">
+<ion-pane ng-controller="contentViewCtrl" id="contentHeight" ng-init="contentLoad()" cache-view="false" ng-cloak>
   <!--<script src="http://192.168.0.146:8888/static/contentJS/defaultGame.js"></script>-->
   <style>
     img[usemap] {
@@ -12,14 +12,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      transition: all linear 0.5s;
       position: fixed;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
       z-index: 0;
-      background:url("img/contentView/play_finish_bg.png") no-repeat center center fixed ;
+
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -30,7 +29,6 @@
       postion: fixed;
       margin: 0 auto;
 
-      z-index: 21;
       background-repeat: no-repeat;
       -webkit-background-size: contain;
       -moz-background-size: contain;
@@ -85,12 +83,13 @@
 
   <div class="contentsController" id="contentDIV"
        style="width: 100%;position: fixed;">
-    <div id="custom-overlay" ng-show="finishShow">
+    <div id="custom-overlay" ngfx-fade-in-down="finishShowed" ngfx-default="hide" ng-show="finishShowed"
+         style="background:url('{{finalBg}}') no-repeat center center fixed ">
       <div id="finishMark" style="width:{{deviceWidth/1.96}}px; height:{{deviceWidth/1.96}}px;background-image:url('{{finishStar}}');
       margin-top:{{deviceHeight/15}}px">
         <div style="margin-top: 80%;text-align: center">
-          <img src="img/contentView/btn_finish_again.png" style="width:{{deviceWidth/5.05}}px;margin-right: {{deviceWidth/100}}px;" ng-click="wantToReplay(true)">
-          <img src="img/contentView/btn_finish_main.png" style="width:{{deviceWidth/5.05}}px;" ng-click="wantToReplay(false)">
+          <img src="{{retryBtn}}" style="width:{{deviceWidth/5.05}}px;margin-right: {{deviceWidth/100}}px;" ng-click="wantToReplay(true)">
+          <img src="{{goMainBtn}}" style="width:{{deviceWidth/5.05}}px;" ng-click="wantToReplay(false)">
         </div>
       </div>
 

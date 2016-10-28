@@ -38,7 +38,7 @@
                     <svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
                   </div>
                   <div class="col-sm-9 col-lg-7 widget-right">
-                    <div class="large">120</div>
+                    <div class="large">{{statData.totalWordNumber}} 개</div>
                     <div class="text-muted">총 학습단어 수</div>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                     <svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg>
                   </div>
                   <div class="col-sm-9 col-lg-7 widget-right">
-                    <div class="large">52</div>
+                    <div class="large">{{statData.answerRateWeek}}%</div>
                     <div class="text-muted">일주일간 정답률</div>
                   </div>
                 </div>
@@ -65,7 +65,7 @@
                     <svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
                   </div>
                   <div class="col-sm-9 col-lg-7 widget-right">
-                    <div class="large">24</div>
+                    <div class="large">{{totalStudytime}}분 </div>
                     <div class="text-muted">누적 학습시간</div>
                   </div>
                 </div>
@@ -78,8 +78,8 @@
                     <svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
                   </div>
                   <div class="col-sm-9 col-lg-7 widget-right">
-                    <div class="large">25.2k</div>
-                    <div class="text-muted">하루평균 학습단어수</div>
+                    <div class="large">{{finishedContentsNumber}}회</div>
+                    <div class="text-muted">콘텐츠 완료 횟수</div>
                   </div>
                 </div>
               </div>
@@ -111,20 +111,11 @@
                                 </div>
                               </div><!--/.col-->
 
-                              <div class="col-sm-6 col-lg-6">
-                                <div class="panel panel-blue">
-                                  <div class="panel-heading dark-overlay">똘기는?</div>
-                                  <div class="panel-body">
-                                    <p>음.. 드릴말씀이 없네요</p>
-                                  </div>
-                                </div>
-                              </div><!--/.col-->
-
-                                  <div class="col-sm-6 col-lg-6">
+                                 <div class="col-sm-6 col-lg-6">
                                     <div class="panel panel-blue">
                                       <div class="panel-heading dark-overlay">창의력</div>
                                         <div class="panel-body">
-                                          <p>이 친구 창의력 지옥임</p>
+                                          <p>{{creativeStatement}}</p>
                                         </div>
                                       </div>
                                   </div><!--/.col-->
@@ -133,7 +124,7 @@
                                     <div class="panel panel-teal">
                                       <div class="panel-heading dark-overlay">집중력</div>
                                       <div class="panel-body">
-                                        <p>집중력도 좋지 못함</p>
+                                        <p>{{concentrationStatement}}</p>
                                       </div>
                                     </div>
                                   </div><!--/.col-->
@@ -142,16 +133,16 @@
                                     <div class="panel panel-orange">
                                       <div class="panel-heading dark-overlay">어휘력</div>
                                       <div class="panel-body">
-                                        <p>집중을 못하는데 어휘력을 어떻게 키움</p>
+                                        <p>{{vocabularyStatement}}</p>
                                       </div>
                                     </div>
                                   </div><!--/.col-->
 
                                   <div class="col-sm-6 col-lg-6">
                                     <div class="panel panel-red">
-                                      <div class="panel-heading dark-overlay">인지력</div>
+                                      <div class="panel-heading dark-overlay">순발력</div>
                                       <div class="panel-body">
-                                        <p>뭔가 인지는 함</p>
+                                        <p>{{agilityStatement}}</p>
                                       </div>
                                     </div>
                                   </div><!--/.col-->
@@ -172,6 +163,18 @@
                             </div>
                           </md-content>
                         </md-tab>
+                        <md-tab label="주차별 정답률">
+                          <md-content class="md-padding">
+                            <h3 class="md-title">주차별 정답률</h3>
+                            <p>- 아이들이 시간에 따라 어떠한 정답율을 보였는지 살펴보세요</p>
+                            <div class="canvas-wrapper">
+                              <canvas id="bar2" class="chart chart-bar"
+                                      chart-data="dataAnswerRateByWeeks"
+                                      chart-labels="labelsAnswerRateByWeeks" chart-series="seriesAnswerRateByWeeks" height="200" width="600">
+                              </canvas>
+                            </div>
+                          </md-content>
+                        </md-tab>
                         <md-tab label="난이도별 정답률">
                           <md-content class="md-padding">
                             <h3 class="md-title">단어난이도별 정답률</h3>
@@ -188,9 +191,18 @@
                           <md-content class="">
                             <h3 class="md-title md-padding">파닉스 성취도</h3>
                             <p md-padding>- 한글봇을 하는동안 자연스럽게 파닉스 교육효과를 누릴 수 있습니다 아이가 어떠한 자음이나 모음에 약한지 확인해보세요</p>
-                              <div id=phoenixDiv ng-include="phoenixStat" style="width:100%; padding: 10px;background-color: #828593">
+                              <div id="phoenixDiv" ng-include="phoenixStat" style="width:100%; padding: 10px;background-color: #828593">
 
                               </div>
+                          </md-content>
+                        </md-tab>
+                        <md-tab label="단어 성취도">
+                          <md-content class="">
+                            <h3 class="md-title md-padding">단어 성취도</h3>
+                            <p md-padding>- 아이가 어떠한 단어를 잘 알고, 모르는지 한눈에 확인하세요!</p>
+                            <div id="wordAchievementDiv" ng-include="wordAchievementStat" style="width:100%; padding: 10px;background-color: #828593">
+
+                            </div>
                           </md-content>
                         </md-tab>
                         <md-tab label="다양한기록들">
@@ -204,7 +216,7 @@
                                       <svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
                                     </div>
                                     <div class="col-sm-9 col-lg-7 widget-right">
-                                      <div class="large">120</div>
+                                      <div class="large">{{statData.totalWordNumber}} 개</div>
                                       <div class="text-muted">총 학습단어 수</div>
                                     </div>
                                   </div>
@@ -217,7 +229,7 @@
                                       <svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg>
                                     </div>
                                     <div class="col-sm-9 col-lg-7 widget-right">
-                                      <div class="large">52</div>
+                                      <div class="large">{{statData.answerRateWeek}}%</div>
                                       <div class="text-muted">일주일간 정답률</div>
                                     </div>
                                   </div>
@@ -230,7 +242,7 @@
                                       <svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
                                     </div>
                                     <div class="col-sm-9 col-lg-7 widget-right">
-                                      <div class="large">24</div>
+                                      <div class="large">{{totalStudytime}} 분</div>
                                       <div class="text-muted">누적 학습시간</div>
                                     </div>
                                   </div>
@@ -243,8 +255,8 @@
                                       <svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
                                     </div>
                                     <div class="col-sm-9 col-lg-7 widget-right">
-                                      <div class="large">25.2k</div>
-                                      <div class="text-muted">하루평균 학습단어수</div>
+                                      <div class="large">{{finishedContentsNumber}} 회</div>
+                                      <div class="text-muted">콘텐츠 완료 횟수</div>
                                     </div>
                                   </div>
                                 </div>
@@ -264,11 +276,11 @@
                                 </thead>
                                 <tbody>
                                   <tr ng-repeat="wordLog in wordLogList">
-                                    <td>{{wordLog.endDate}}</td>
-                                    <td>{{wordLog.hangeulbotWord.wordKorean}}</td>
-                                    <td>{{wordLog.insertedAnswer}}</td>
-                                    <td>{{wordLog.hangeulbotWord.blockMixGrade}}</td>
-                                    <td>{{wordLog.correct}}</td>
+                                    <td>{{wordLog.endDate| date:'yyyy-MM-dd'}}</td>
+                                    <td>{{wordLog.hangeulbotWord.wordKorean|wordKoreanBlankFilter: $index:wordLogList}}</td>
+                                    <td>{{wordLog.insertedAnswer|insertedAnswerFilter}}</td>
+                                    <td>{{wordLog.hangeulbotWord.blockMixGrade|wordGradeBlankFilter: $index:wordLogList}}</td>
+                                    <td>{{wordLog.correct|answerTruefalse}}</td>
                                     <td>{{wordLog.timeRequired}} 초</td>
                                   </tr>
 
@@ -276,8 +288,8 @@
                               </table>
                             </div>
                             <nav>
-                              <ul class="pager">
-                                <li><a href="#">더보기</a></li>
+                              <ul class="pager" ng-show="moreWordLog">
+                                <li><button ng-click="getWordLog()">더보기</button></li>
                               </ul>
                             </nav>
                           </md-content>
@@ -295,10 +307,10 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="contentLog in contentLogList">
-                                  <td>{{contentLog.startDate}}</td>
-                                  <td>{{contentLog.hangeulbotContent.contentTitle}}</td>
-                                  <td>{{contentLog.hangeulbotContent.contentCategory}}</td>
-                                  <td>{{contentLog.finished}}</td>
+                                  <td>{{contentLog.startDate| date:'yyyy-MM-dd'}}</td>
+                                  <td>{{contentLog.hangeulbotContent.contentTitle|contentTitleBlankFilter: $index:contentLogList}}</td>
+                                  <td>{{contentLog.hangeulbotContent.contentCategory|contentCategoryBlankFilter: $index:contentLogList}}</td>
+                                  <td>{{contentLog.finished| finishedTruefalse}}</td>
                                   <td>{{contentLog.timeRequired}}초</td>
                                 </tr>
 
@@ -306,8 +318,8 @@
                               </table>
                             </div>
                             <nav>
-                              <ul class="pager">
-                                <li><a href="#">더보기</a></li>
+                              <ul class="pager" ng-show="moreContentLog">
+                                <li><button ng-click="getContentLog()">더보기</button></li>
                               </ul>
                             </nav>
                           </md-content>

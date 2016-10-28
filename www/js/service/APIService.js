@@ -10,7 +10,7 @@ angular.module('hangeulbotApp')
       console.log(childId);
       return $q(function(resolve,reject){
         $http({
-          
+
           method: 'GET', //방식
           url: API_ENDPOINT.url+'/childStats/?childId='+childId,
           dataType:'json',
@@ -51,6 +51,30 @@ angular.module('hangeulbotApp')
         })
       })
     }
+    var getWordLog = function(childId,page){
+      return $q(function(resolve,reject){
+        $http({
+          method:'get',
+          url:API_ENDPOINT.url+'/wordLogList?childId='+childId+'&page='+page,
+        }).success(function(data,status,headers,config){
+          resolve(data);
+        }).error(function(data,status,headers,config){
+          reject(data);
+        })
+      })
+    }
+    var getContentLog = function(childId,page){
+      return $q(function(resolve,reject){
+        $http({
+          method:'get',
+          url:API_ENDPOINT.url+'/contentLogList?childId='+childId+'&page='+page,
+        }).success(function(data,status,headers,config){
+          resolve(data);
+        }).error(function(data,status,headers,config){
+          reject(data);
+        })
+      })
+    }
     /*var isHangeulbotDeivce = function(deviceAddress){
       return $q(function(resolve,reject){
         $http({
@@ -70,7 +94,9 @@ angular.module('hangeulbotApp')
        logout: logout,*/
       getStatByChildId:getStatByChildId,
       getWordListForDefaultWordGame:getWordListForDefaultWordGame,
-      submitLog:submitLog
+      submitLog:submitLog,
+      getWordLog:getWordLog,
+      getContentLog:getContentLog
 
     };
   })

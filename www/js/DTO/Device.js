@@ -2,7 +2,7 @@
  * Created by jyson on 2016. 9. 1..
  */
 angular.module('hangeulbotApp')
-  .factory('Device',function($q,$cordovaDevice,bluetoothService,$cordovaBluetoothSerial,HangeulbotDevice,$window,$rootScope,$cordovaNetwork,hangeulbotUtil){
+  .factory('Device',function($q,$cordovaDevice,bluetoothService,$cordovaBluetoothSerial,HangeulbotDevice,$window,$rootScope,$cordovaNetwork,hangeulbotUtil,BLE){
     function Device(deviceData){
       if(deviceData){
         this.setData(deviceData);
@@ -29,10 +29,9 @@ angular.module('hangeulbotApp')
       isOffline: function(){
         return $cordovaNetwork.isOffline();
       },
-
-      isBluetoothEnabled: function () {
+      enable: function() {
         var q = $q.defer();
-        var promise = $cordovaBluetoothSerial.isEnabled();
+        var promise = BLE.enable();
         promise.then(function(){
           q.resolve('enabled');
         },function(){
@@ -40,13 +39,21 @@ angular.module('hangeulbotApp')
         })
         return q.promise;
       },
-      connect : function(device){
+      isBluetoothEnabled: function () {
         var q = $q.defer();
-        var deviceId = device.id;
-        console.log("",device+"  "+deviceId);
-        var promise1 = $cordovaBluetoothSerial.connect(deviceId);
+        var promise = BLE.isEnabled();
+        promise.then(function(){
+          q.resolve('enabled');
+        },function(){
+          q.reject('disabled');
+        })
+        return q.promise;
+      },
+      connect : function(deviceId){
+        var q = $q.defer();
+        var promise1 = BLE.connect(deviceId);
         promise1.then(function(data){
-          console.log('success')
+          console.log('success',data);
           q.resolve(data);
         },function(error){
           console.log('fail',error)
@@ -70,25 +77,28 @@ angular.module('hangeulbotApp')
         }, 3000);
       },
       //선택된 디바이스에 subscribe 시도한다.
-      subscribe: function () {
-        var subscribePromise = bluetoothService.subscribe();
+      startNotification: function (deviceId) {
+        console.log('읽자!!!블투데이터를!!')
+        var subscribePromise = BLE.startNotification(deviceId);
         subscribePromise.then(function (data) {
           console.log("success subscribe" + data);
-
-        }, function (error) {
-          console.log("success subscribe" + error);
-        },function(value){
-          console.log("notify subscribe" + value);
-          var insertedText = hangeulbotUtil.textAssembler(value);
+          var insertedText = hangeulbotUtil.textAssembler(data);
           console.log("넘어온 정답 :"+insertedText);
           //될까 모르겠다...
-          submitAnswer(insertedText);
+          try{
+            submitAnswer(insertedText);
+          }catch (e){
+            console.log("이곳은 콘텐츠 영역이 아닙니다 ")
+          }
+          Device.prototype.startNotification(deviceId);
+        }, function (error) {
+          console.log("success subscribe" + error);
         })
       },
       //이미 이전에 페어링된적 있는 한글봇 기기들을 찾는다.
       discoverPairedDevices : function(){
         var q = $q.defer();
-        var promise = $cordovaBluetoothSerial.list();
+        var promise = BLE.scan();
         var devices=[] ;
         var count = 0;
         promise.then(function(data){

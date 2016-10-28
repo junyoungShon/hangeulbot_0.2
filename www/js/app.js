@@ -44,6 +44,7 @@ angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordo
 
   })
 
+
 .run(function($ionicPlatform,$state,$rootScope,AuthService,$cordovaSplashscreen) {
   $ionicPlatform.ready(function() {
 
@@ -63,10 +64,14 @@ angular.module('hangeulbotApp', ['ionic','ionic-datepicker','ui.router','ngCordo
     if(window.StatusBar) {
       StatusBar.hide();
     }
-
-    //$state.go('intro');
+    /*setInterval(function(){
+      screen.lockOrientation('landscape');
+      StatusBar.hide();
+      ionic.Platform.fullScreen(true,false);
+    },3000);*/
+    $state.go('intro');
     //$state.go('contentView');
-    $state.go('statisticsPage');
+    //$state.go('statisticsPage');
     //
     //$state.go('main');
     //$state.go('insertInfo')
